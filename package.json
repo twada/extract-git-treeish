@@ -1,0 +1,33 @@
+{
+  "name": "git-treeish",
+  "version": "0.0.0",
+  "description": "working with git tree-ish",
+  "main": "index.js",
+  "keywords": [
+    "git"
+  ],
+  "author": {
+    "name": "Takuto Wada",
+    "email": "takuto.wada@gmail.com",
+    "url": "https://github.com/twada"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "^6.2.0",
+    "semistandard": "^13.0.0",
+    "snazzy": "^8.0.0"
+  },
+  "scripts": {
+    "lint": "semistandard --verbose | snazzy",
+    "fmt": "semistandard --fix",
+    "test": "mocha test"
+  },
+  "semistandard": {
+    "globals": [
+      "describe",
+      "beforeEach",
+      "afterEach",
+      "it"
+    ]
+  }
+}
