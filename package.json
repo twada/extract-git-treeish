@@ -13,7 +13,10 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "mkdirp": "^0.5.1",
     "mocha": "^6.2.0",
+    "randomstring": "^1.1.5",
+    "rimraf": "^3.0.0",
     "semistandard": "^13.0.0",
     "snazzy": "^8.0.0"
   },
@@ -29,5 +32,8 @@
       "afterEach",
       "it"
     ]
+  },
+  "dependencies": {
+    "tar": "^4.0.0"
   }
 }
