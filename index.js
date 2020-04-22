@@ -4,14 +4,13 @@ const { spawn } = require('child_process');
 const fs = require('fs');
 const { join } = require('path');
 const tar = require('tar');
-const mkdirp = require('mkdirp');
-const mkdir = (destinationDir) => {
+const mkdirp = (destinationDir) => {
   return new Promise((resolve, reject) => {
-    mkdirp(destinationDir, (err) => {
+    fs.mkdir(destinationDir, { recursive: true }, (err) => {
       if (err) {
         return reject(err);
       }
-      return resolve(destinationDir);
+      return resolve();
     });
   });
 };
@@ -20,7 +19,7 @@ function extractEach ({ treeIshNames, destinationDir, gitRoot }) {
   return {
     promises: treeIshNames.map((treeIshName) => {
       const treeIshDestDir = join(destinationDir, treeIshName);
-      return Promise.resolve().then(() => mkdir(treeIshDestDir)).then(() => {
+      return mkdirp(treeIshDestDir).then(() => {
         return extract(treeIshName, treeIshDestDir, {
           cwd: gitRoot
         });

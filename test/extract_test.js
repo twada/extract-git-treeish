@@ -6,9 +6,18 @@ const assert = require('assert');
 const os = require('os');
 const fs = require('fs');
 const path = require('path');
-const mkdirp = require('mkdirp');
 const rimraf = require('rimraf');
 const randomstring = require('randomstring');
+const mkdirp = (destinationDir) => {
+  return new Promise((resolve, reject) => {
+    fs.mkdir(destinationDir, { recursive: true }, (err) => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve();
+    });
+  });
+};
 const fail = (args) => {
   assert(false, 'should not be here: ' + args);
 };
@@ -23,7 +32,7 @@ describe('extract-git-treeish', () => {
   let targetDir;
   beforeEach(() => {
     targetDir = path.join(os.tmpdir(), generateName());
-    mkdirp.sync(targetDir);
+    return mkdirp(targetDir);
   });
   afterEach(() => {
     if (fs.existsSync(targetDir)) {

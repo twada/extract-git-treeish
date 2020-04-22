@@ -11,7 +11,6 @@
     "tar": "^6.0.0"
   },
   "devDependencies": {
-    "mkdirp": "^0.5.1",
     "mocha": "^7.0.0",
     "randomstring": "^1.1.5",
     "rimraf": "^3.0.0",
