@@ -52,17 +52,15 @@ function extract (treeIshName, destinationDir, spawnOptions) {
 
 function exists (treeIshName, spawnOptions) {
   return new Promise((resolve, reject) => {
-    spawn('git', ['rev-parse', '--verify', treeIshName], spawnOptions)
+    spawn('git', ['rev-parse', '--verify', '--quiet', treeIshName], spawnOptions)
       .on('error', (err) => {
         reject(err);
       })
       .on('close', (code, signal) => {
-        if (code === 128) {
-          return resolve(false);
-        } else if (code !== 0) {
-          return reject(new Error(`Error while \`git rev-parse --verify ${treeIshName}\``));
+        if (code === 0) {
+          return resolve(true);
         }
-        return resolve(true);
+        return resolve(false);
       });
   });
 }
