@@ -30,7 +30,7 @@ function extractEach ({ treeIshNames, destinationDir, gitRoot }) {
 
 function extract (treeIshName, destinationDir, spawnOptions) {
   return new Promise((resolve, reject) => {
-    fs.access(destinationDir, fs.constants.F_OK | fs.constants.R_OK, (err) => {
+    fs.access(destinationDir, fs.constants.R_OK | fs.constants.W_OK | fs.constants.X_OK, (err) => {
       if (err) {
         return reject(err);
       }

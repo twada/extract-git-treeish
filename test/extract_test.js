@@ -8,9 +8,9 @@ const fs = require('fs');
 const path = require('path');
 const rimraf = require('rimraf');
 const randomstring = require('randomstring');
-const mkdirp = (destinationDir) => {
+const mkdirp = (destinationDir, mode = 0o777) => {
   return new Promise((resolve, reject) => {
-    fs.mkdir(destinationDir, { recursive: true }, (err) => {
+    fs.mkdir(destinationDir, { recursive: true, mode }, (err) => {
       if (err) {
         return reject(err);
       }
@@ -52,6 +52,15 @@ describe('extract-git-treeish', () => {
     return extract('initial', targetDir).then(fail, (err) => {
       assert(err);
       assert(err.code === 'ENOENT');
+    });
+  });
+  it('rejects when destinationDir is not accessible', () => {
+    rimraf.sync(targetDir);
+    return mkdirp(targetDir, 0o400).then(() => {
+      return extract('initial', targetDir).then(fail, (err) => {
+        assert(err);
+        assert(err.code === 'EACCES');
+      });
     });
   });
   it('rejects when treeIshName does not exist', () => {
