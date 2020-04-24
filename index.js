@@ -18,11 +18,8 @@ const mkdirp = (destinationDir) => {
 function extractEach ({ treeIshNames, destinationDir, gitRoot }) {
   return {
     promises: treeIshNames.map((treeIshName) => {
-      const treeIshDestDir = join(destinationDir, treeIshName);
-      return mkdirp(treeIshDestDir).then(() => {
-        return extract(treeIshName, treeIshDestDir, {
-          cwd: gitRoot
-        });
+      return extract(treeIshName, join(destinationDir, treeIshName), {
+        cwd: gitRoot
       });
     })
   };
@@ -30,22 +27,20 @@ function extractEach ({ treeIshNames, destinationDir, gitRoot }) {
 
 function extract (treeIshName, destinationDir, spawnOptions) {
   return new Promise((resolve, reject) => {
-    fs.access(destinationDir, fs.constants.R_OK | fs.constants.W_OK | fs.constants.X_OK, (err) => {
-      if (err) {
-        return reject(err);
+    return exists(treeIshName, spawnOptions).then((exists) => {
+      if (!exists) {
+        reject(new Error(`Specified <tree-ish> [${treeIshName}] does not exist`));
+        return;
       }
-      return exists(treeIshName, spawnOptions).then((exists) => {
-        if (!exists) {
-          return reject(new Error(`Specified <tree-ish> [${treeIshName}] does not exist`));
-        }
-        return spawn('git', ['archive', treeIshName], spawnOptions).stdout.pipe(tar.x({ C: destinationDir }))
+      mkdirp(destinationDir).then(() => {
+        spawn('git', ['archive', treeIshName], spawnOptions).stdout.pipe(tar.x({ C: destinationDir }))
           .on('error', (err) => {
             reject(err);
           })
           .on('close', (code, signal) => {
             resolve({ treeIsh: treeIshName, dir: destinationDir });
           });
-      }).catch((err) => reject(err));
+      }, reject);
     });
   });
 }

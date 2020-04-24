@@ -8,16 +8,6 @@ const fs = require('fs');
 const path = require('path');
 const rimraf = require('rimraf');
 const randomstring = require('randomstring');
-const mkdirp = (destinationDir, mode = 0o777) => {
-  return new Promise((resolve, reject) => {
-    fs.mkdir(destinationDir, { recursive: true, mode }, (err) => {
-      if (err) {
-        return reject(err);
-      }
-      return resolve();
-    });
-  });
-};
 const fail = (args) => {
   assert(false, 'should not be here: ' + args);
 };
@@ -32,7 +22,6 @@ describe('extract-git-treeish', () => {
   let targetDir;
   beforeEach(() => {
     targetDir = path.join(os.tmpdir(), generateName());
-    return mkdirp(targetDir);
   });
   afterEach(() => {
     if (fs.existsSync(targetDir)) {
@@ -47,26 +36,22 @@ describe('extract-git-treeish', () => {
       });
     });
   });
-  it('rejects when destinationDir does not exist', () => {
-    rimraf.sync(targetDir);
-    return extract('initial', targetDir).then(fail, (err) => {
-      assert(err);
-      assert(err.code === 'ENOENT');
-    });
-  });
-  it('rejects when destinationDir is not accessible', () => {
-    rimraf.sync(targetDir);
-    return mkdirp(targetDir, 0o400).then(() => {
-      return extract('initial', targetDir).then(fail, (err) => {
-        assert(err);
-        assert(err.code === 'EACCES');
-      });
+  it('creates `destinationDir` if does not exist', () => {
+    return extract('initial', targetDir).then((result) => {
+      assert(fs.existsSync(targetDir));
     });
   });
   it('rejects when treeIshName does not exist', () => {
     return extract('nonexistent', targetDir).then(fail, (err) => {
       assert(err);
       assert(err.message = 'Specified <tree-ish> [nonexistent] does not exist');
+    });
+  });
+  it('rejects when failed to create `destinationDir`', () => {
+    fs.closeSync(fs.openSync(targetDir, 'w'));
+    return extract('initial', targetDir).then(fail, (err) => {
+      assert(err);
+      assert(err.code === 'EEXIST');
     });
   });
 });
