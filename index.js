@@ -33,9 +33,7 @@ function extract (treeIshName, destinationDir, spawnOptions) {
       }
       mkdirp(destinationDir).then(() => {
         spawn('git', ['archive', treeIshName], spawnOptions).stdout.pipe(tar.x({ C: destinationDir }))
-          .on('error', (err) => {
-            reject(err);
-          })
+          .on('error', reject)
           .on('close', (code, signal) => {
             resolve({ treeIsh: treeIshName, dir: destinationDir });
           });
@@ -47,9 +45,7 @@ function extract (treeIshName, destinationDir, spawnOptions) {
 function exists (treeIshName, spawnOptions) {
   return new Promise((resolve, reject) => {
     spawn('git', ['rev-parse', '--verify', '--quiet', treeIshName], spawnOptions)
-      .on('error', (err) => {
-        reject(err);
-      })
+      .on('error', reject)
       .on('close', (code, signal) => {
         if (code === 0) {
           return resolve(true);
