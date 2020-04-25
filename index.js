@@ -4,9 +4,9 @@ const { spawn } = require('child_process');
 const fs = require('fs');
 const { join } = require('path');
 const tar = require('tar');
-const mkdirp = (destinationDir) => {
+const mkdirp = (dir) => {
   return new Promise((resolve, reject) => {
-    fs.mkdir(destinationDir, { recursive: true }, (err) => err ? reject(err) : resolve());
+    fs.mkdir(dir, { recursive: true }, (err) => err ? reject(err) : resolve());
   });
 };
 
