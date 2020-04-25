@@ -46,12 +46,7 @@ function exists (treeIshName, spawnOptions) {
   return new Promise((resolve, reject) => {
     spawn('git', ['rev-parse', '--verify', '--quiet', treeIshName], spawnOptions)
       .on('error', reject)
-      .on('close', (code, signal) => {
-        if (code === 0) {
-          return resolve(true);
-        }
-        return resolve(false);
-      });
+      .on('close', (code, signal) => resolve(code === 0));
   });
 }
 
