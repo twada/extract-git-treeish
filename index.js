@@ -15,12 +15,11 @@ const mkdirp = (destinationDir) => {
   });
 };
 
-function extractEach ({ treeIshNames, destinationDir, gitRoot }) {
+function extractEach ({ treeIshNames, destinationDir, gitRoot, spawnOptions }) {
+  const sOpts = Object.assign({}, { cwd: gitRoot }, spawnOptions);
   return {
     promises: treeIshNames.map((treeIshName) => {
-      return extract(treeIshName, join(destinationDir, treeIshName), {
-        cwd: gitRoot
-      });
+      return extract(treeIshName, join(destinationDir, treeIshName), sOpts);
     })
   };
 }
