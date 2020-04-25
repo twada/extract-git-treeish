@@ -6,12 +6,7 @@ const { join } = require('path');
 const tar = require('tar');
 const mkdirp = (destinationDir) => {
   return new Promise((resolve, reject) => {
-    fs.mkdir(destinationDir, { recursive: true }, (err) => {
-      if (err) {
-        return reject(err);
-      }
-      return resolve();
-    });
+    fs.mkdir(destinationDir, { recursive: true }, (err) => err ? reject(err) : resolve());
   });
 };
 
@@ -34,9 +29,7 @@ function extract (treeIshName, destinationDir, spawnOptions) {
       mkdirp(destinationDir).then(() => {
         spawn('git', ['archive', treeIshName], spawnOptions).stdout.pipe(tar.x({ C: destinationDir }))
           .on('error', reject)
-          .on('close', (code, signal) => {
-            resolve({ treeIsh: treeIshName, dir: destinationDir });
-          });
+          .on('close', (code, signal) => resolve({ treeIsh: treeIshName, dir: destinationDir }));
       }, reject);
     });
   });
