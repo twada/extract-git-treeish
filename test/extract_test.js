@@ -9,7 +9,8 @@ const path = require('path');
 const rimraf = require('rimraf');
 const randomstring = require('randomstring');
 const fail = (args) => {
-  assert(false, 'should not be here: ' + args);
+  console.error(args);
+  assert(false, 'should not be here');
 };
 const generateName = () => {
   return randomstring.generate({
@@ -29,7 +30,7 @@ describe('extract-git-treeish', () => {
     }
   });
   it('resolves when succeeded', () => {
-    return extract('initial', targetDir).then((result) => {
+    return extract({ treeIsh: 'initial', dest: targetDir }).then((result) => {
       assert.deepStrictEqual(result, {
         treeIsh: 'initial',
         dir: targetDir
@@ -37,19 +38,19 @@ describe('extract-git-treeish', () => {
     });
   });
   it('creates `destinationDir` if does not exist', () => {
-    return extract('initial', targetDir).then((result) => {
+    return extract({ treeIsh: 'initial', dest: targetDir }).then((result) => {
       assert(fs.existsSync(targetDir));
     });
   });
   it('rejects when treeIshName does not exist', () => {
-    return extract('nonexistent', targetDir).then(fail, (err) => {
+    return extract({ treeIsh: 'nonexistent', dest: targetDir }).then(fail, (err) => {
       assert(err);
       assert(err.message = 'Specified <tree-ish> [nonexistent] does not exist');
     });
   });
   it('rejects when failed to create `destinationDir`', () => {
     fs.closeSync(fs.openSync(targetDir, 'w'));
-    return extract('initial', targetDir).then(fail, (err) => {
+    return extract({ treeIsh: 'initial', dest: targetDir }).then(fail, (err) => {
       assert(err);
       assert(err.code === 'EEXIST');
     });
