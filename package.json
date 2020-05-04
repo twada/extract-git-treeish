@@ -1,6 +1,6 @@
 {
-  "name": "git-treeish",
-  "description": "working with git tree-ish",
+  "name": "extract-git-treeish",
+  "description": "extract git tree-ish (commit, branch, or tag) into dir",
   "version": "0.0.0",
   "author": {
     "name": "Takuto Wada",
