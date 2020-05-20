@@ -2,7 +2,7 @@
 
 delete require.cache[require.resolve('..')];
 const { exists } = require('..');
-const assert = require('assert');
+const assert = require('assert').strict;
 
 function shouldNotBeRejected (args) {
   console.error(args);

@@ -2,24 +2,19 @@
 
 delete require.cache[require.resolve('..')];
 const { extractEach } = require('..');
-const assert = require('assert');
+const assert = require('assert').strict;
 const fs = require('fs');
 const { join } = require('path');
 const os = require('os');
 const findRoot = require('find-root');
-const randomstring = require('randomstring');
-const generateName = () => {
-  return randomstring.generate({
-    length: 12,
-    charset: 'alphabetic'
-  });
-};
+const zf = (n, len = 2) => String(n).padStart(len, '0');
+const ymd = (d = new Date()) => `${d.getFullYear()}${zf(d.getMonth() + 1)}${zf(d.getDate())}${zf(d.getHours())}${zf(d.getMinutes())}${zf(d.getSeconds())}${zf(d.getMilliseconds(), 3)}`;
 
 describe('extract-each-git-treeish', () => {
   let destinationDir;
   let request;
   beforeEach(() => {
-    destinationDir = join(os.tmpdir(), generateName());
+    destinationDir = join(os.tmpdir(), ymd());
     assert(!fs.existsSync(destinationDir));
     const gitRoot = findRoot(process.cwd(), (dir) => fs.existsSync(join(dir, '.git')));
     request = extractEach({ treeIshNames: ['initial', 'master'], destinationDir, gitRoot });

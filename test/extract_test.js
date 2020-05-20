@@ -2,27 +2,22 @@
 
 delete require.cache[require.resolve('..')];
 const { extract } = require('..');
-const assert = require('assert');
+const assert = require('assert').strict;
 const os = require('os');
 const fs = require('fs');
 const path = require('path');
 const rimraf = require('rimraf');
-const randomstring = require('randomstring');
+const zf = (n, len = 2) => String(n).padStart(len, '0');
+const ymd = (d = new Date()) => `${d.getFullYear()}${zf(d.getMonth() + 1)}${zf(d.getDate())}${zf(d.getHours())}${zf(d.getMinutes())}${zf(d.getSeconds())}${zf(d.getMilliseconds(), 3)}`;
 const fail = (args) => {
   console.error(args);
   assert(false, 'should not be here');
-};
-const generateName = () => {
-  return randomstring.generate({
-    length: 12,
-    charset: 'alphabetic'
-  });
 };
 
 describe('extract-git-treeish', () => {
   let targetDir;
   beforeEach(() => {
-    targetDir = path.join(os.tmpdir(), generateName());
+    targetDir = path.join(os.tmpdir(), ymd());
   });
   afterEach(() => {
     if (fs.existsSync(targetDir)) {

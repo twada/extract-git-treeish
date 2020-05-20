@@ -12,7 +12,6 @@
   },
   "devDependencies": {
     "mocha": "^7.0.0",
-    "randomstring": "^1.1.5",
     "rimraf": "^3.0.0",
     "semistandard": "^14.0.0",
     "snazzy": "^8.0.0"
