@@ -38,7 +38,7 @@ function extract ({ treeIsh, dest, gitRoot, spawnOptions }) {
   return new Promise((resolve, reject) => {
     return exists({ treeIsh, spawnOptions: sOpts }).then((exists) => {
       if (!exists) {
-        reject(new Error(`Specified <tree-ish> [${treeIsh}] does not exist`));
+        reject(new Error(`Specified <tree-ish> does not exist [${treeIsh}]`));
         return;
       }
       mkdirp(dest).then(() => {

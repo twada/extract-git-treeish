@@ -73,7 +73,7 @@ describe('extract-git-treeish', () => {
   it('rejects when treeIshName does not exist', () => {
     return extract({ treeIsh: 'nonexistent', dest: targetDir }).then(fail, (err) => {
       assert(err);
-      assert(err.message = 'Specified <tree-ish> [nonexistent] does not exist');
+      assert(err.message === 'Specified <tree-ish> does not exist [nonexistent]');
     });
   });
 
