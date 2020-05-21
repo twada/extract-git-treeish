@@ -6,7 +6,21 @@ const { join } = require('path');
 const tar = require('tar');
 const mkdirp = (dir) => {
   return new Promise((resolve, reject) => {
-    fs.mkdir(dir, { recursive: true }, (err) => err ? reject(err) : resolve());
+    fs.readdir(dir, (err, files) => {
+      if (err) {
+        if (err.code === 'ENOENT') {
+          fs.mkdir(dir, { recursive: true }, (e) => e ? reject(e) : resolve());
+        } else {
+          reject(err);
+        }
+      } else {
+        if (files.length === 0) {
+          resolve();
+        } else {
+          reject(new Error(`Specified <dest> is not empty [${dir}]`));
+        }
+      }
+    });
   });
 };
 
