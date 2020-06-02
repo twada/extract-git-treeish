@@ -2,7 +2,6 @@
 
 const { spawn } = require('child_process');
 const fs = require('fs');
-const { join } = require('path');
 const tar = require('tar');
 const mkdirp = (dir) => {
   return new Promise((resolve, reject) => {
@@ -23,15 +22,6 @@ const mkdirp = (dir) => {
     });
   });
 };
-
-function extractEach ({ treeIshes, dest, gitRoot, spawnOptions }) {
-  const sOpts = Object.assign({}, { cwd: gitRoot }, spawnOptions);
-  return {
-    extractions: treeIshes.map((treeIsh) => {
-      return extract({ treeIsh, dest: join(dest, treeIsh), spawnOptions: sOpts });
-    })
-  };
-}
 
 function extract ({ treeIsh, dest, gitRoot, spawnOptions }) {
   const sOpts = Object.assign({}, { cwd: gitRoot }, spawnOptions);
@@ -60,7 +50,6 @@ function exists ({ treeIsh, gitRoot, spawnOptions }) {
 }
 
 module.exports = {
-  extractEach,
   extract,
   exists
 };
