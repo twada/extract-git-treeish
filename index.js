@@ -36,7 +36,7 @@ function extract ({ treeIsh, dest, gitRoot, spawnOptions }) {
           .on('error', reject)
           .on('close', (code, signal) => resolve({ treeIsh, dir: dest }));
       }, reject);
-    });
+    }, reject);
   });
 }
 
