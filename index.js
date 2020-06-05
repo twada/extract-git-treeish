@@ -49,7 +49,35 @@ function exists ({ treeIsh, gitRoot, spawnOptions }) {
   });
 }
 
+function resolveGitRoot (spawnOptions) {
+  return new Promise((resolve, reject) => {
+    let done, ok, ng;
+    const gitRevParse = spawn('git', ['rev-parse', '--show-toplevel'], spawnOptions);
+    gitRevParse.on('error', (err) => {
+      if (done) return;
+      done = true;
+      reject(err);
+    });
+    gitRevParse.on('close', (code, signal) => {
+      if (done) return;
+      done = true;
+      if (code === 0 && ok) {
+        resolve(ok);
+      } else {
+        reject(new Error(`process exited with code ${code}: "${ng}"`));
+      }
+    });
+    gitRevParse.stdout.on('data', (data) => {
+      ok = String(data).trim();
+    });
+    gitRevParse.stderr.on('data', (data) => {
+      ng = String(data).trim();
+    });
+  });
+}
+
 module.exports = {
+  resolveGitRoot,
   extract,
   exists
 };
