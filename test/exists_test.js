@@ -4,9 +4,7 @@ delete require.cache[require.resolve('..')];
 const { exists } = require('..');
 const assert = require('assert').strict;
 const os = require('os');
-const fs = require('fs');
 const path = require('path');
-const findRoot = require('find-root');
 const zf = (n, len = 2) => String(n).padStart(len, '0');
 const ymd = (d = new Date()) => `${d.getFullYear()}${zf(d.getMonth() + 1)}${zf(d.getDate())}${zf(d.getHours())}${zf(d.getMinutes())}${zf(d.getSeconds())}${zf(d.getMilliseconds(), 3)}`;
 const shouldNotBeRejected = (args) => {
@@ -38,7 +36,7 @@ describe('exists({ treeIsh, [gitRoot], [spawnOptions] }): Inquires for existence
   describe('`gitRoot`(string) is an optional directory path pointing to top level directory of git project', () => {
     context('when `gitRoot` exists and `treeIsh` exists too:', () => {
       it('returns `Promise` which will resolve with `true`', () => {
-        const gitRoot = findRoot(process.cwd(), (dir) => fs.existsSync(path.join(dir, '.git')));
+        const gitRoot = path.join(__dirname, '..');
         return exists({ treeIsh: 'initial', gitRoot }).then((result) => {
           assert(result === true);
         }, shouldNotBeRejected);

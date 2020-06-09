@@ -6,7 +6,6 @@ const assert = require('assert').strict;
 const os = require('os');
 const fs = require('fs');
 const path = require('path');
-const findRoot = require('find-root');
 const rimraf = require('rimraf');
 const touchSync = (file) => fs.closeSync(fs.openSync(file, 'w'));
 const zf = (n, len = 2) => String(n).padStart(len, '0');
@@ -122,7 +121,7 @@ describe('extract({ treeIsh, dest, [gitRoot], [spawnOptions] }): Extracts conten
     });
     context('when `gitRoot` exists and `treeIsh` exists too:', () => {
       it('resolves as usual when `dest` is empty', () => {
-        const gitRoot = findRoot(process.cwd(), (dir) => fs.existsSync(path.join(dir, '.git')));
+        const gitRoot = path.join(__dirname, '..');
         return extract({ treeIsh: 'initial', dest: targetDir, gitRoot }).then((result) => {
           assert(fs.existsSync(path.join(targetDir, '.gitignore')));
           assert(fs.existsSync(path.join(targetDir, 'package.json')));
