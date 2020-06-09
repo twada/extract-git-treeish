@@ -101,6 +101,25 @@ describe('extract({ treeIsh, dest, [gitRoot], [spawnOptions] }): Extracts conten
   });
 
   describe('`gitRoot`(string) is an optional directory path pointing to top level directory of git project', () => {
+    context('when `gitRoot` option is omitted:', () => {
+      let orig;
+      beforeEach(() => {
+        orig = process.cwd();
+      });
+      afterEach(() => {
+        process.chdir(orig);
+      });
+      context('when `process.cwd()` is inside the git project:', () => {
+        it('resolves as usual', () => {
+          process.chdir(__dirname);
+          return extract({ treeIsh: 'initial', dest: targetDir }).then((result) => {
+            assert(fs.existsSync(path.join(targetDir, '.gitignore')));
+            assert(fs.existsSync(path.join(targetDir, 'package.json')));
+            assert(!fs.existsSync(path.join(targetDir, 'index.js')));
+          }, shouldNotBeRejected);
+        });
+      });
+    });
     context('when `gitRoot` exists and `treeIsh` exists too:', () => {
       it('resolves as usual when `dest` is empty', () => {
         const gitRoot = findRoot(process.cwd(), (dir) => fs.existsSync(path.join(dir, '.git')));
