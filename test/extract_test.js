@@ -118,8 +118,17 @@ describe('extract({ treeIsh, dest, [gitRoot], [spawnOptions] }): Extracts conten
           }, shouldNotBeRejected);
         });
       });
+      context('when `process.cwd()` is outside the git project:', () => {
+        it('returns `Promise` which will reject with Error', () => {
+          process.chdir(os.tmpdir());
+          return extract({ treeIsh: 'initial', dest: targetDir }).then(shouldNotBeResolved, (err) => {
+            assert(err);
+            assert(err.message === 'Git project root does not found');
+          });
+        });
+      });
     });
-    context('when `gitRoot` exists and `treeIsh` exists too:', () => {
+    context('when specified `gitRoot` is pointing to git project root and `treeIsh` exists too:', () => {
       it('resolves as usual when `dest` is empty', () => {
         const gitRoot = path.join(__dirname, '..');
         return extract({ treeIsh: 'initial', dest: targetDir, gitRoot }).then((result) => {
@@ -129,7 +138,7 @@ describe('extract({ treeIsh, dest, [gitRoot], [spawnOptions] }): Extracts conten
         }, shouldNotBeRejected);
       });
     });
-    context('when `gitRoot` is not a git repository (or any of the parent directories):', () => {
+    context('when specified `gitRoot` is not a git repository (or any of the parent directories):', () => {
       it('returns `Promise` which will reject with Error', () => {
         return extract({ treeIsh: 'initial', dest: targetDir, gitRoot: os.tmpdir() }).then(shouldNotBeResolved, (err) => {
           assert(err);
@@ -137,7 +146,7 @@ describe('extract({ treeIsh, dest, [gitRoot], [spawnOptions] }): Extracts conten
         });
       });
     });
-    context('when `gitRoot` is pointing to directory that does not exist:', () => {
+    context('when specified `gitRoot` is pointing to directory that does not exist:', () => {
       it('returns `Promise` which will reject with Error', () => {
         return extract({ treeIsh: 'initial', dest: targetDir, gitRoot: path.join(os.tmpdir(), ymd()) }).then(shouldNotBeResolved, (err) => {
           assert(err);

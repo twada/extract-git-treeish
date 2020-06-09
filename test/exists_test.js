@@ -34,7 +34,33 @@ describe('exists({ treeIsh, [gitRoot], [spawnOptions] }): Inquires for existence
     });
   });
   describe('`gitRoot`(string) is an optional directory path pointing to top level directory of git project', () => {
-    context('when `gitRoot` exists and `treeIsh` exists too:', () => {
+    context('when `gitRoot` option is omitted:', () => {
+      let orig;
+      beforeEach(() => {
+        orig = process.cwd();
+      });
+      afterEach(() => {
+        process.chdir(orig);
+      });
+      context('and when `process.cwd()` is inside the git project:', () => {
+        it('resolves as usual', () => {
+          process.chdir(__dirname);
+          return exists({ treeIsh: 'initial' }).then((result) => {
+            assert(result === true);
+          }, shouldNotBeRejected);
+        });
+      });
+      context('and when `process.cwd()` is outside the git project:', () => {
+        it('returns `Promise` which will reject with Error', () => {
+          process.chdir(os.tmpdir());
+          return exists({ treeIsh: 'initial' }).then(shouldNotBeResolved, (err) => {
+            assert(err);
+            assert(err.message === 'Git project root does not found');
+          });
+        });
+      });
+    });
+    context('when specified `gitRoot` is pointing to git project root and `treeIsh` exists too:', () => {
       it('returns `Promise` which will resolve with `true`', () => {
         const gitRoot = path.join(__dirname, '..');
         return exists({ treeIsh: 'initial', gitRoot }).then((result) => {
@@ -42,14 +68,14 @@ describe('exists({ treeIsh, [gitRoot], [spawnOptions] }): Inquires for existence
         }, shouldNotBeRejected);
       });
     });
-    context('when `gitRoot` is not a git repository (or any of the parent directories):', () => {
+    context('when specified `gitRoot` is not a git repository (or any of the parent directories):', () => {
       it('returns `Promise` which will resolve with `false`', () => {
         return exists({ treeIsh: 'initial', gitRoot: os.tmpdir() }).then((result) => {
           assert(result === false);
         }, shouldNotBeRejected);
       });
     });
-    context('when `gitRoot` is pointing to directory that does not exist:', () => {
+    context('when specified `gitRoot` is pointing to directory that does not exist:', () => {
       it('returns `Promise` which will reject with Error', () => {
         return exists({ treeIsh: 'initial', gitRoot: path.join(os.tmpdir(), ymd()) }).then(shouldNotBeResolved, (err) => {
           assert(err);
