@@ -4,7 +4,7 @@ const { spawn } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const tar = require('tar');
-const mkdirp = (dir) => {
+const prepareDestDir = (dir) => {
   return new Promise((resolve, reject) => {
     fs.readdir(dir, (err, files) => {
       if (err) {
@@ -50,7 +50,7 @@ function extract ({ treeIsh, dest, gitRoot, spawnOptions }) {
           reject(new Error(`Specified <tree-ish> does not exist [${treeIsh}]`));
           return;
         }
-        mkdirp(dest).then(() => {
+        prepareDestDir(dest).then(() => {
           const gitArchive = spawn('git', ['archive', treeIsh], sOpts);
           gitArchive.on('error', reject);
           gitArchive.stdout.pipe(tar.x({ C: dest }))
