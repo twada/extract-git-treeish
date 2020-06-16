@@ -39,8 +39,16 @@ const findGitProjectRoot = (from = process.cwd()) => {
     });
   });
 };
+const describe = (arg) => arg === null ? 'null' : 'type ' + typeof arg;
+const mandatoryString = (argName, actualArg) => {
+  if (typeof actualArg !== 'string') {
+    throw new TypeError(`The "${argName}" argument must be of type string. Received ${describe(actualArg)}`);
+  }
+};
 
 function extract ({ treeIsh, dest, gitRoot, spawnOptions }) {
+  mandatoryString('treeIsh', treeIsh);
+  mandatoryString('dest', dest);
   const found = gitRoot ? Promise.resolve(gitRoot) : findGitProjectRoot();
   return found.then((projectRoot) => {
     const sOpts = Object.assign({}, spawnOptions, { cwd: projectRoot });

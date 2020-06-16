@@ -57,10 +57,34 @@ describe('extract({ treeIsh, dest, [gitRoot], [spawnOptions] }): Extracts conten
         assert(err.message === 'Specified <tree-ish> does not exist [nonexistent]');
       });
     });
+
+    context('when `treeIsh` argument is omitted:', () => {
+      it('throw TypeError', () => {
+        assert.throws(() => {
+          extract({ dest: targetDir });
+        }, (err) => {
+          assert(err instanceof TypeError);
+          assert(err.message === 'The "treeIsh" argument must be of type string. Received type undefined');
+          return true;
+        });
+      });
+    });
+
+    context('when `treeIsh` argument is not a string:', () => {
+      it('throw TypeError', () => {
+        assert.throws(() => {
+          extract({ treeIsh: 1234, dest: targetDir });
+        }, (err) => {
+          assert(err instanceof TypeError);
+          assert(err.message === 'The "treeIsh" argument must be of type string. Received type number');
+          return true;
+        });
+      });
+    });
   });
 
   describe('`dest`(string) is a directory path which `extract` going to extract tree-ish content', () => {
-    context('when `dest` does not exist:', () => {
+    context('when directory specified by `dest` does not exist:', () => {
       it('creates `dest` recursively then resolves as usual', () => {
         assert(!fs.existsSync(targetDir));
         return extract({ treeIsh: 'initial', dest: targetDir }).then((result) => {
@@ -69,8 +93,8 @@ describe('extract({ treeIsh, dest, [gitRoot], [spawnOptions] }): Extracts conten
       });
     });
 
-    context('when `dest` already exists:', () => {
-      it('resolves as usual when `dest` is empty', () => {
+    context('when directory specified by `dest` already exists:', () => {
+      it('resolves as usual when `dest` directory is empty', () => {
         fs.mkdirSync(targetDir);
         assert(!fs.existsSync(path.join(targetDir, '.gitignore')));
         assert(!fs.existsSync(path.join(targetDir, 'package.json')));
@@ -80,7 +104,7 @@ describe('extract({ treeIsh, dest, [gitRoot], [spawnOptions] }): Extracts conten
         });
       });
 
-      it('rejects with Error when `dest` is not empty', () => {
+      it('rejects with Error when `dest` directory is not empty', () => {
         fs.mkdirSync(targetDir);
         touchSync(path.join(targetDir, 'foo'));
         return extract({ treeIsh: 'initial', dest: targetDir }).then(shouldNotBeResolved, (err) => {
@@ -89,11 +113,35 @@ describe('extract({ treeIsh, dest, [gitRoot], [spawnOptions] }): Extracts conten
         });
       });
 
-      it('rejects with Error when `dest` is not writable or not a directory', () => {
+      it('rejects with Error when `dest` directory is not writable or `dest` is not a directory', () => {
         touchSync(targetDir);
         return extract({ treeIsh: 'initial', dest: targetDir }).then(shouldNotBeResolved, (err) => {
           assert(err);
           assert(err.code === 'ENOTDIR');
+        });
+      });
+    });
+
+    context('when `dest` argument is omitted:', () => {
+      it('throw TypeError', () => {
+        assert.throws(() => {
+          extract({ treeIsh: 'initial' });
+        }, (err) => {
+          assert(err instanceof TypeError);
+          assert(err.message === 'The "dest" argument must be of type string. Received type undefined');
+          return true;
+        });
+      });
+    });
+
+    context('when `dest` argument is not a string:', () => {
+      it('throw TypeError', () => {
+        assert.throws(() => {
+          extract({ treeIsh: 'initial', dest: null });
+        }, (err) => {
+          assert(err instanceof TypeError);
+          assert(err.message === 'The "dest" argument must be of type string. Received null');
+          return true;
         });
       });
     });
