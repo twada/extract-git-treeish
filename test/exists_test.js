@@ -32,6 +32,28 @@ describe('exists({ treeIsh, [gitRoot], [spawnOptions] }): Inquires for existence
         }, shouldNotBeRejected);
       });
     });
+    context('when `treeIsh` argument is omitted:', () => {
+      it('throw TypeError', () => {
+        assert.throws(() => {
+          exists({ });
+        }, (err) => {
+          assert(err instanceof TypeError);
+          assert(err.message === 'The "treeIsh" argument must be of type string. Received type undefined');
+          return true;
+        });
+      });
+    });
+    context('when `treeIsh` argument is not a string:', () => {
+      it('throw TypeError', () => {
+        assert.throws(() => {
+          exists({ treeIsh: 1234 });
+        }, (err) => {
+          assert(err instanceof TypeError);
+          assert(err.message === 'The "treeIsh" argument must be of type string. Received type number');
+          return true;
+        });
+      });
+    });
   });
   describe('`gitRoot`(string) is an optional directory path pointing to top level directory of git project', () => {
     context('when `gitRoot` option is omitted:', () => {

@@ -73,6 +73,7 @@ function extract ({ treeIsh, dest, gitRoot, spawnOptions }) {
 }
 
 function exists ({ treeIsh, gitRoot, spawnOptions }) {
+  mandatoryString('treeIsh', treeIsh);
   const found = gitRoot ? Promise.resolve(gitRoot) : findGitProjectRoot();
   return found.then((projectRoot) => {
     const sOpts = Object.assign({}, spawnOptions, { cwd: projectRoot });
