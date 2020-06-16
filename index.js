@@ -45,10 +45,16 @@ const mandatoryString = (argName, actualArg) => {
     throw new TypeError(`The "${argName}" argument must be of type string. Received ${describe(actualArg)}`);
   }
 };
+const optionalString = (argName, actualArg) => {
+  if (actualArg && typeof actualArg !== 'string') {
+    throw new TypeError(`The "${argName}" argument must be of type string. Received ${describe(actualArg)}`);
+  }
+};
 
 function extract ({ treeIsh, dest, gitRoot, spawnOptions }) {
   mandatoryString('treeIsh', treeIsh);
   mandatoryString('dest', dest);
+  optionalString('gitRoot', gitRoot);
   const found = gitRoot ? Promise.resolve(gitRoot) : findGitProjectRoot();
   return found.then((projectRoot) => {
     const sOpts = Object.assign({}, spawnOptions, { cwd: projectRoot });

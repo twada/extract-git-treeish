@@ -202,5 +202,16 @@ describe('extract({ treeIsh, dest, [gitRoot], [spawnOptions] }): Extracts conten
         });
       });
     });
+    context('when `gitRoot` argument is not a string:', () => {
+      it('throw TypeError', () => {
+        assert.throws(() => {
+          extract({ treeIsh: 'initial', dest: targetDir, gitRoot: 1234 });
+        }, (err) => {
+          assert(err instanceof TypeError);
+          assert(err.message === 'The "gitRoot" argument must be of type string. Received type number');
+          return true;
+        });
+      });
+    });
   });
 });
