@@ -51,13 +51,14 @@ describe('extract({ treeIsh, dest, [gitRoot], [spawnOptions] }): Extracts conten
   });
 
   describe('`treeIsh`(string) is a name of a git tree-ish (commit, branch, or tag) to be extracted into `dest`', () => {
-    it('reject with Error when tree-ish specified by `treeIsh` does not exist', () => {
-      return extract({ treeIsh: 'nonexistent', dest: targetDir }).then(shouldNotBeResolved, (err) => {
-        assert(err);
-        assert(err.message === 'Specified <tree-ish> does not exist [nonexistent]');
+    context('when tree-ish specified by `treeIsh` does not exist:', () => {
+      it('reject with Error', () => {
+        return extract({ treeIsh: 'nonexistent', dest: targetDir }).then(shouldNotBeResolved, (err) => {
+          assert(err);
+          assert(err.message === 'Specified <tree-ish> does not exist [nonexistent]');
+        });
       });
     });
-
     context('when `treeIsh` argument is omitted:', () => {
       it('throw TypeError', () => {
         assert.throws(() => {
@@ -69,7 +70,6 @@ describe('extract({ treeIsh, dest, [gitRoot], [spawnOptions] }): Extracts conten
         });
       });
     });
-
     context('when `treeIsh` argument is not a string:', () => {
       it('throw TypeError', () => {
         assert.throws(() => {

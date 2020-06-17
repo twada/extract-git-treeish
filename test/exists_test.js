@@ -17,21 +17,19 @@ const shouldNotBeResolved = (args) => {
 };
 
 describe('exists({ treeIsh, [gitRoot], [spawnOptions] }): Inquires for existence of `treeIsh`', () => {
+  describe('returns `Promise` which will:', () => {
+    it('resolve with `true` when tree-ish exists', () => {
+      return exists({ treeIsh: 'initial' }).then((result) => {
+        assert(result === true);
+      }, shouldNotBeRejected);
+    });
+    it('resolve with `false` when tree-ish does not exist', () => {
+      return exists({ treeIsh: 'nonexistent' }).then((result) => {
+        assert(result === false);
+      }, shouldNotBeRejected);
+    });
+  });
   describe('`treeIsh`(string) is a name of a git tree-ish (commit, branch, or tag) to be inquired', () => {
-    context('when tree-ish exists:', () => {
-      it('returns `Promise` which will resolve with `true`', () => {
-        return exists({ treeIsh: 'initial' }).then((result) => {
-          assert(result === true);
-        }, shouldNotBeRejected);
-      });
-    });
-    context('when tree-ish does not exist:', () => {
-      it('returns `Promise` which will resolve with `false`', () => {
-        return exists({ treeIsh: 'nonexistent' }).then((result) => {
-          assert(result === false);
-        }, shouldNotBeRejected);
-      });
-    });
     context('when `treeIsh` argument is omitted:', () => {
       it('throw TypeError', () => {
         assert.throws(() => {
@@ -82,8 +80,8 @@ describe('exists({ treeIsh, [gitRoot], [spawnOptions] }): Inquires for existence
         });
       });
     });
-    context('when specified `gitRoot` is pointing to git project root and `treeIsh` exists too:', () => {
-      it('returns `Promise` which will resolve with `true`', () => {
+    context('when specified `gitRoot` is pointing to git project root:', () => {
+      it('resolves as usual', () => {
         const gitRoot = path.join(__dirname, '..');
         return exists({ treeIsh: 'initial', gitRoot }).then((result) => {
           assert(result === true);
