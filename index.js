@@ -45,7 +45,7 @@ const mandatoryString = (argName, actualArg) => {
     throw new TypeError(`The "${argName}" argument must be of type string. Received ${describe(actualArg)}`);
   }
 };
-const optionalString = (argName, actualArg) => actualArg && mandatoryString(argName, actualArg);
+const optionalString = (argName, actualArg) => typeof actualArg !== 'undefined' && mandatoryString(argName, actualArg);
 
 function extract ({ treeIsh, dest, gitRoot, spawnOptions }) {
   mandatoryString('treeIsh', treeIsh);

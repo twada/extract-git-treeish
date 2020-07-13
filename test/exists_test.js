@@ -104,12 +104,21 @@ describe('exists({ treeIsh, [gitRoot], [spawnOptions] }): Inquires for existence
       });
     });
     context('when `gitRoot` argument is not a string:', () => {
-      it('throw TypeError', () => {
+      it('throw TypeError when number', () => {
         assert.throws(() => {
           exists({ treeIsh: 'initial', gitRoot: 1234 });
         }, (err) => {
           assert(err instanceof TypeError);
           assert(err.message === 'The "gitRoot" argument must be of type string. Received type number');
+          return true;
+        });
+      });
+      it('throw TypeError when boolean', () => {
+        assert.throws(() => {
+          exists({ treeIsh: 'initial', gitRoot: false });
+        }, (err) => {
+          assert(err instanceof TypeError);
+          assert(err.message === 'The "gitRoot" argument must be of type string. Received type boolean');
           return true;
         });
       });
