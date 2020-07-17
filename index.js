@@ -47,15 +47,15 @@ const mandatoryString = (argName, actualArg) => {
 };
 const optionalString = (argName, actualArg) => typeof actualArg !== 'undefined' && mandatoryString(argName, actualArg);
 
-function extract ({ treeIsh, dest, gitRoot, spawnOptions }) {
+function extract ({ treeIsh, dest, gitProjectRoot, spawnOptions }) {
   mandatoryString('treeIsh', treeIsh);
   mandatoryString('dest', dest);
-  optionalString('gitRoot', gitRoot);
-  const found = gitRoot ? Promise.resolve(gitRoot) : findGitProjectRoot();
+  optionalString('gitProjectRoot', gitProjectRoot);
+  const found = gitProjectRoot ? Promise.resolve(gitProjectRoot) : findGitProjectRoot();
   return found.then((projectRoot) => {
     const sOpts = Object.assign({}, spawnOptions, { cwd: projectRoot });
     return new Promise((resolve, reject) => {
-      return exists({ treeIsh, gitRoot: projectRoot, spawnOptions: sOpts }).then((exists) => {
+      return exists({ treeIsh, gitProjectRoot: projectRoot, spawnOptions: sOpts }).then((exists) => {
         if (!exists) {
           reject(new Error(`Specified <tree-ish> does not exist [${treeIsh}]`));
           return;
@@ -72,10 +72,10 @@ function extract ({ treeIsh, dest, gitRoot, spawnOptions }) {
   });
 }
 
-function exists ({ treeIsh, gitRoot, spawnOptions }) {
+function exists ({ treeIsh, gitProjectRoot, spawnOptions }) {
   mandatoryString('treeIsh', treeIsh);
-  optionalString('gitRoot', gitRoot);
-  const found = gitRoot ? Promise.resolve(gitRoot) : findGitProjectRoot();
+  optionalString('gitProjectRoot', gitProjectRoot);
+  const found = gitProjectRoot ? Promise.resolve(gitProjectRoot) : findGitProjectRoot();
   return found.then((projectRoot) => {
     const sOpts = Object.assign({}, spawnOptions, { cwd: projectRoot });
     return new Promise((resolve, reject) => {

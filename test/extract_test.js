@@ -19,7 +19,7 @@ const shouldNotBeResolved = (args) => {
   assert(false, 'should not be resolved');
 };
 
-describe('extract({ treeIsh, dest, [gitRoot], [spawnOptions] }): Extracts contents of `treeIsh` into `dest` directory', () => {
+describe('extract({ treeIsh, dest, [gitProjectRoot], [spawnOptions] }): Extracts contents of `treeIsh` into `dest` directory', () => {
   let targetDir;
   beforeEach(() => {
     targetDir = path.join(os.tmpdir(), ymd());
@@ -147,8 +147,8 @@ describe('extract({ treeIsh, dest, [gitRoot], [spawnOptions] }): Extracts conten
     });
   });
 
-  describe('`gitRoot`(string) is an optional directory path pointing to top level directory of git project', () => {
-    context('when `gitRoot` option is omitted:', () => {
+  describe('`gitProjectRoot`(string) is an optional directory path pointing to top level directory of git project', () => {
+    context('when `gitProjectRoot` option is omitted:', () => {
       let orig;
       beforeEach(() => {
         orig = process.cwd();
@@ -176,48 +176,48 @@ describe('extract({ treeIsh, dest, [gitRoot], [spawnOptions] }): Extracts conten
         });
       });
     });
-    context('when specified `gitRoot` is pointing to git project root and `treeIsh` exists too:', () => {
+    context('when specified `gitProjectRoot` is pointing to git project root and `treeIsh` exists too:', () => {
       it('resolves as usual when `dest` is empty', () => {
-        const gitRoot = path.join(__dirname, '..');
-        return extract({ treeIsh: 'initial', dest: targetDir, gitRoot }).then((result) => {
+        const gitProjectRoot = path.join(__dirname, '..');
+        return extract({ treeIsh: 'initial', dest: targetDir, gitProjectRoot }).then((result) => {
           assert(fs.existsSync(path.join(targetDir, '.gitignore')));
           assert(fs.existsSync(path.join(targetDir, 'package.json')));
           assert(!fs.existsSync(path.join(targetDir, 'index.js')));
         }, shouldNotBeRejected);
       });
     });
-    context('when specified `gitRoot` is not a git repository (or any of the parent directories):', () => {
+    context('when specified `gitProjectRoot` is not a git repository (or any of the parent directories):', () => {
       it('returns `Promise` which will reject with Error', () => {
-        return extract({ treeIsh: 'initial', dest: targetDir, gitRoot: os.tmpdir() }).then(shouldNotBeResolved, (err) => {
+        return extract({ treeIsh: 'initial', dest: targetDir, gitProjectRoot: os.tmpdir() }).then(shouldNotBeResolved, (err) => {
           assert(err);
           assert(err.message === 'Specified <tree-ish> does not exist [initial]');
         });
       });
     });
-    context('when specified `gitRoot` is pointing to directory that does not exist:', () => {
+    context('when specified `gitProjectRoot` is pointing to directory that does not exist:', () => {
       it('returns `Promise` which will reject with Error', () => {
-        return extract({ treeIsh: 'initial', dest: targetDir, gitRoot: path.join(os.tmpdir(), ymd()) }).then(shouldNotBeResolved, (err) => {
+        return extract({ treeIsh: 'initial', dest: targetDir, gitProjectRoot: path.join(os.tmpdir(), ymd()) }).then(shouldNotBeResolved, (err) => {
           assert(err);
           assert(err instanceof Error);
         });
       });
     });
-    context('when `gitRoot` argument is not a string:', () => {
+    context('when `gitProjectRoot` argument is not a string:', () => {
       it('throw TypeError when number', () => {
         assert.throws(() => {
-          extract({ treeIsh: 'initial', dest: targetDir, gitRoot: 1234 });
+          extract({ treeIsh: 'initial', dest: targetDir, gitProjectRoot: 1234 });
         }, (err) => {
           assert(err instanceof TypeError);
-          assert(err.message === 'The "gitRoot" argument must be of type string. Received type number');
+          assert(err.message === 'The "gitProjectRoot" argument must be of type string. Received type number');
           return true;
         });
       });
       it('throw TypeError when boolean', () => {
         assert.throws(() => {
-          extract({ treeIsh: 'initial', dest: targetDir, gitRoot: false });
+          extract({ treeIsh: 'initial', dest: targetDir, gitProjectRoot: false });
         }, (err) => {
           assert(err instanceof TypeError);
-          assert(err.message === 'The "gitRoot" argument must be of type string. Received type boolean');
+          assert(err.message === 'The "gitProjectRoot" argument must be of type string. Received type boolean');
           return true;
         });
       });

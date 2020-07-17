@@ -16,7 +16,7 @@ const shouldNotBeResolved = (args) => {
   assert(false, 'should not be resolved');
 };
 
-describe('exists({ treeIsh, [gitRoot], [spawnOptions] }): Inquires for existence of `treeIsh`', () => {
+describe('exists({ treeIsh, [gitProjectRoot], [spawnOptions] }): Inquires for existence of `treeIsh`', () => {
   describe('returns `Promise` which will:', () => {
     it('resolve with `true` when tree-ish exists', () => {
       return exists({ treeIsh: 'initial' }).then((result) => {
@@ -53,8 +53,8 @@ describe('exists({ treeIsh, [gitRoot], [spawnOptions] }): Inquires for existence
       });
     });
   });
-  describe('`gitRoot`(string) is an optional directory path pointing to top level directory of git project', () => {
-    context('when `gitRoot` option is omitted:', () => {
+  describe('`gitProjectRoot`(string) is an optional directory path pointing to top level directory of git project', () => {
+    context('when `gitProjectRoot` option is omitted:', () => {
       let orig;
       beforeEach(() => {
         orig = process.cwd();
@@ -80,45 +80,45 @@ describe('exists({ treeIsh, [gitRoot], [spawnOptions] }): Inquires for existence
         });
       });
     });
-    context('when specified `gitRoot` is pointing to git project root:', () => {
+    context('when specified `gitProjectRoot` is pointing to git project root:', () => {
       it('resolves as usual', () => {
-        const gitRoot = path.join(__dirname, '..');
-        return exists({ treeIsh: 'initial', gitRoot }).then((result) => {
+        const gitProjectRoot = path.join(__dirname, '..');
+        return exists({ treeIsh: 'initial', gitProjectRoot }).then((result) => {
           assert(result === true);
         }, shouldNotBeRejected);
       });
     });
-    context('when specified `gitRoot` is not a git repository (or any of the parent directories):', () => {
+    context('when specified `gitProjectRoot` is not a git repository (or any of the parent directories):', () => {
       it('returns `Promise` which will resolve with `false`', () => {
-        return exists({ treeIsh: 'initial', gitRoot: os.tmpdir() }).then((result) => {
+        return exists({ treeIsh: 'initial', gitProjectRoot: os.tmpdir() }).then((result) => {
           assert(result === false);
         }, shouldNotBeRejected);
       });
     });
-    context('when specified `gitRoot` is pointing to directory that does not exist:', () => {
+    context('when specified `gitProjectRoot` is pointing to directory that does not exist:', () => {
       it('returns `Promise` which will reject with Error', () => {
-        return exists({ treeIsh: 'initial', gitRoot: path.join(os.tmpdir(), ymd()) }).then(shouldNotBeResolved, (err) => {
+        return exists({ treeIsh: 'initial', gitProjectRoot: path.join(os.tmpdir(), ymd()) }).then(shouldNotBeResolved, (err) => {
           assert(err);
           assert(err instanceof Error);
         });
       });
     });
-    context('when `gitRoot` argument is not a string:', () => {
+    context('when `gitProjectRoot` argument is not a string:', () => {
       it('throw TypeError when number', () => {
         assert.throws(() => {
-          exists({ treeIsh: 'initial', gitRoot: 1234 });
+          exists({ treeIsh: 'initial', gitProjectRoot: 1234 });
         }, (err) => {
           assert(err instanceof TypeError);
-          assert(err.message === 'The "gitRoot" argument must be of type string. Received type number');
+          assert(err.message === 'The "gitProjectRoot" argument must be of type string. Received type number');
           return true;
         });
       });
       it('throw TypeError when boolean', () => {
         assert.throws(() => {
-          exists({ treeIsh: 'initial', gitRoot: false });
+          exists({ treeIsh: 'initial', gitProjectRoot: false });
         }, (err) => {
           assert(err instanceof TypeError);
-          assert(err.message === 'The "gitRoot" argument must be of type string. Received type boolean');
+          assert(err.message === 'The "gitProjectRoot" argument must be of type string. Received type boolean');
           return true;
         });
       });
