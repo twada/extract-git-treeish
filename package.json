@@ -13,7 +13,7 @@
   "devDependencies": {
     "@twada/mocha-spec-tree-reporter": "^0.2.0",
     "intelli-espower-loader": "^1.0.1",
-    "mocha": "^7.0.0",
+    "mocha": "^8.0.0",
     "power-assert": "^1.6.1",
     "rimraf": "^3.0.0",
     "semistandard": "^14.0.0",
