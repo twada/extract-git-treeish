@@ -1,12 +1,13 @@
 {
   "name": "extract-git-treeish",
-  "description": "extract git tree-ish (commit, branch, or tag) into dir",
+  "description": "extract git tree-ish (commits, branches, or tags) into target directory",
   "version": "0.0.0",
   "author": {
     "name": "Takuto Wada",
     "email": "takuto.wada@gmail.com",
     "url": "https://github.com/twada"
   },
+  "bugs": "https://github.com/twada/extract-git-treeish/issues",
   "dependencies": {
     "tar": "^6.0.0"
   },
@@ -19,11 +20,22 @@
     "semistandard": "^14.0.0",
     "snazzy": "^8.0.0"
   },
+  "files": [
+    "CHANGELOG.md",
+    "README.md",
+    "index.js",
+    "package.json"
+  ],
+  "homepage": "http://github.com/twada/extract-git-treeish",
   "keywords": [
     "git"
   ],
   "license": "MIT",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/twada/extract-git-treeish.git"
+  },
   "scripts": {
     "fmt": "semistandard --fix",
     "lint": "semistandard --verbose | snazzy",
