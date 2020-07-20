@@ -4,6 +4,7 @@ extract-git-treeish
 Extracts git tree-ish (commits, branches, or tags) into target directory.
 
 [![Build Status][travis-image]][travis-url]
+[![NPM version][npm-image]][npm-url]
 [![Code Style][style-image]][style-url]
 [![License][license-image]][license-url]
 
@@ -113,6 +114,9 @@ Licensed under the [MIT](https://twada.mit-license.org) license.
 
 [travis-url]: https://travis-ci.org/twada/extract-git-treeish
 [travis-image]: https://secure.travis-ci.org/twada/extract-git-treeish.svg?branch=master
+
+[npm-url]: https://npmjs.org/package/extract-git-treeish
+[npm-image]: https://badge.fury.io/js/extract-git-treeish.svg
 
 [style-url]: https://github.com/standard/semistandard
 [style-image]: https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg
