@@ -19,7 +19,7 @@ const shouldNotBeResolved = (args) => {
   assert(false, 'should not be resolved');
 };
 
-describe('extract({ treeIsh, dest, [gitProjectRoot], [spawnOptions] }): Extracts contents of `treeIsh` into `dest` directory', () => {
+describe('`extract({ treeIsh, dest, [gitProjectRoot], [spawnOptions] })`: Extracts contents of `treeIsh` into `dest` directory', () => {
   let targetDir;
   beforeEach(() => {
     targetDir = path.join(os.tmpdir(), ymd());

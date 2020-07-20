@@ -12,7 +12,7 @@ Extracts git tree-ish (commits, branches, or tags) into target directory.
 API
 ---------------------------------------
 
-### exists({ treeIsh, [gitProjectRoot], [spawnOptions] }): Inquires for existence of `treeIsh`
+### `exists({ treeIsh, [gitProjectRoot], [spawnOptions] })`: Inquires for existence of `treeIsh`
   - returns `Promise` which will:
     - resolve with `true` when tree-ish exists
     - resolve with `false` when tree-ish does not exist
@@ -44,7 +44,7 @@ assert(await exists({ treeIsh: 'master' }) === true);
 assert(await exists({ treeIsh: 'doesnotexist' }) === false);
 ```
 
-### extract({ treeIsh, dest, [gitProjectRoot], [spawnOptions] }): Extracts contents of `treeIsh` into `dest` directory
+### `extract({ treeIsh, dest, [gitProjectRoot], [spawnOptions] })`: Extracts contents of `treeIsh` into `dest` directory
   - returns `Promise` which will:
     - resolve with object containing `{treeIsh, dir}` when succeeded
     - extract tree-ish content into `dest` on resolve

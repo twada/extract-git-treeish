@@ -16,7 +16,7 @@ const shouldNotBeResolved = (args) => {
   assert(false, 'should not be resolved');
 };
 
-describe('exists({ treeIsh, [gitProjectRoot], [spawnOptions] }): Inquires for existence of `treeIsh`', () => {
+describe('`exists({ treeIsh, [gitProjectRoot], [spawnOptions] })`: Inquires for existence of `treeIsh`', () => {
   describe('returns `Promise` which will:', () => {
     it('resolve with `true` when tree-ish exists', () => {
       return exists({ treeIsh: 'initial' }).then((result) => {
