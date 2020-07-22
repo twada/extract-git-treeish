@@ -12,7 +12,7 @@ Extracts git tree-ish (commits, branches, or tags) into target directory.
 USAGE
 ---------------------------------------
 
-`exists({ treeIsh, [gitProjectRoot], [spawnOptions] })`: Inquires for existence of `treeIsh`
+### `exists`
 
 ```js
 const { exists } = require('extract-git-treeish');
@@ -21,7 +21,7 @@ assert(await exists({ treeIsh: 'master' }) === true);
 assert(await exists({ treeIsh: 'doesnotexist' }) === false);
 ```
 
-`extract({ treeIsh, dest, [gitProjectRoot], [spawnOptions] })`: Extracts contents of `treeIsh` into `dest` directory
+### `extract`
 
 ```js
 const { extract } = require('extract-git-treeish');
