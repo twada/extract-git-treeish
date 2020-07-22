@@ -1,7 +1,7 @@
 {
   "name": "extract-git-treeish",
   "description": "extract git tree-ish (commits, branches, or tags) into target directory",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "author": {
     "name": "Takuto Wada",
     "email": "takuto.wada@gmail.com",
