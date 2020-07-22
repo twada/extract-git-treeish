@@ -9,6 +9,33 @@ Extracts git tree-ish (commits, branches, or tags) into target directory.
 [![License][license-image]][license-url]
 
 
+USAGE
+---------------------------------------
+
+`exists({ treeIsh, [gitProjectRoot], [spawnOptions] })`: Inquires for existence of `treeIsh`
+
+```js
+const { exists } = require('extract-git-treeish');
+const assert = require('assert');
+assert(await exists({ treeIsh: 'master' }) === true);
+assert(await exists({ treeIsh: 'doesnotexist' }) === false);
+```
+
+`extract({ treeIsh, dest, [gitProjectRoot], [spawnOptions] })`: Extracts contents of `treeIsh` into `dest` directory
+
+```js
+const { extract } = require('extract-git-treeish');
+const assert = require('assert');
+const path = require('path');
+const destDir = path.join(process.cwd(), 'demo', 'v1');
+const extracted = await extract({ treeIsh: 'v1.0.0', dest: destDir })
+assert.deepStrictEqual(extracted, {
+  treeIsh: 'v1.0.0',
+  dir: '/path/to/cwd/demo/v1'
+});
+```
+
+
 API
 ---------------------------------------
 
@@ -36,13 +63,6 @@ API
     - when `gitProjectRoot` argument is not a string:
       - throw TypeError when number
       - throw TypeError when boolean
-
-```js
-const { exists } = require('extract-git-treeish');
-const assert = require('assert');
-assert(await exists({ treeIsh: 'master' }) === true);
-assert(await exists({ treeIsh: 'doesnotexist' }) === false);
-```
 
 ### `extract({ treeIsh, dest, [gitProjectRoot], [spawnOptions] })`: Extracts contents of `treeIsh` into `dest` directory
   - returns `Promise` which will:
@@ -81,18 +101,6 @@ assert(await exists({ treeIsh: 'doesnotexist' }) === false);
     - when `gitProjectRoot` argument is not a string:
       - throw TypeError when number
       - throw TypeError when boolean
-
-```js
-const { extract } = require('extract-git-treeish');
-const assert = require('assert');
-const path = require('path');
-const destDir = path.join(process.cwd(), 'demo', 'v1');
-const extracted = await extract({ treeIsh: 'v1.0.0', dest: destDir })
-assert.deepStrictEqual(extracted, {
-  treeIsh: 'v1.0.0',
-  dir: '/path/to/cwd/demo/v1'
-});
-```
 
 
 INSTALL
