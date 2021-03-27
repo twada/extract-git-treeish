@@ -17,8 +17,8 @@
     "mocha": "^8.0.0",
     "power-assert": "^1.6.1",
     "rimraf": "^3.0.0",
-    "semistandard": "^14.0.0",
-    "snazzy": "^8.0.0"
+    "semistandard": "^16.0.0",
+    "snazzy": "^9.0.0"
   },
   "files": [
     "CHANGELOG.md",
