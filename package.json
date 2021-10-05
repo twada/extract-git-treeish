@@ -9,7 +9,7 @@
   },
   "bugs": "https://github.com/twada/extract-git-treeish/issues",
   "dependencies": {
-    "tar": "^6.0.0"
+    "tar": "^6.1.9"
   },
   "devDependencies": {
     "@twada/mocha-spec-tree-reporter": "^0.2.0",
