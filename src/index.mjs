@@ -1,18 +1,14 @@
-// const { spawn } = require('child_process');
-// const fs = require('fs');
-// const path = require('path');
-// const tar = require('tar');
 import { spawn } from 'child_process';
-import fs from 'fs';
-import path from 'path';
+import { readdir, mkdir, access, constants } from 'fs';
+import { join, parse } from 'path';
 import { x as tarX } from 'tar';
 
 const prepareDestDir = (dir) => {
   return new Promise((resolve, reject) => {
-    fs.readdir(dir, (err, files) => {
+    readdir(dir, (err, files) => {
       if (err) {
         if (err.code === 'ENOENT') {
-          fs.mkdir(dir, { recursive: true }, (e) => e ? reject(e) : resolve());
+          mkdir(dir, { recursive: true }, (e) => e ? reject(e) : resolve());
         } else {
           reject(err);
         }
@@ -28,9 +24,9 @@ const prepareDestDir = (dir) => {
 };
 const findGitProjectRoot = (from = process.cwd()) => {
   return new Promise((resolve, reject) => {
-    fs.access(path.join(from, '.git'), fs.constants.F_OK | fs.constants.R_OK, (err) => {
+    access(join(from, '.git'), constants.F_OK | constants.R_OK, (err) => {
       if (err) {
-        const { dir, root } = path.parse(from);
+        const { dir, root } = parse(from);
         if (dir === root) {
           reject(new Error('Git project root does not found'));
         } else {
@@ -89,10 +85,6 @@ function exists ({ treeIsh, gitProjectRoot, spawnOptions }) {
   });
 }
 
-// module.exports = {
-//   extract,
-//   exists
-// };
 export {
   extract,
   exists
