@@ -1,9 +1,12 @@
-'use strict';
+// const { spawn } = require('child_process');
+// const fs = require('fs');
+// const path = require('path');
+// const tar = require('tar');
+import { spawn } from 'child_process';
+import fs from 'fs';
+import path from 'path';
+import { x as tarX } from 'tar';
 
-const { spawn } = require('child_process');
-const fs = require('fs');
-const path = require('path');
-const tar = require('tar');
 const prepareDestDir = (dir) => {
   return new Promise((resolve, reject) => {
     fs.readdir(dir, (err, files) => {
@@ -63,7 +66,7 @@ function extract ({ treeIsh, dest, gitProjectRoot, spawnOptions }) {
         prepareDestDir(dest).then(() => {
           const gitArchive = spawn('git', ['archive', treeIsh], sOpts);
           gitArchive.on('error', reject);
-          gitArchive.stdout.pipe(tar.x({ C: dest }))
+          gitArchive.stdout.pipe(tarX({ C: dest }))
             .on('error', reject)
             .on('close', (code, signal) => resolve({ treeIsh, dir: dest }));
         }, reject);
@@ -86,7 +89,11 @@ function exists ({ treeIsh, gitProjectRoot, spawnOptions }) {
   });
 }
 
-module.exports = {
+// module.exports = {
+//   extract,
+//   exists
+// };
+export {
   extract,
   exists
 };
