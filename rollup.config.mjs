@@ -12,5 +12,7 @@ export default {
     preserveModules: true,
     // do not add `Object.defineProperty(exports, '__esModule', { value: true })`
     esModule: false,
+    // use const instead of var when creating statements
+    preferConst: true,
   }
 };
