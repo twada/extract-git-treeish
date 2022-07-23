@@ -31,7 +31,11 @@
     "git"
   ],
   "license": "MIT",
-  "main": "index.js",
+  "main": "./dist/index.cjs",
+  "exports": {
+    "import": "./src/index.mjs",
+    "require": "./dist/index.cjs"
+  },
   "repository": {
     "type": "git",
     "url": "http://github.com/twada/extract-git-treeish.git"
