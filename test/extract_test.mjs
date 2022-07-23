@@ -1,5 +1,6 @@
 'use strict';
 
+// import { extract } from '../dist/index.cjs';
 import { extract } from '../src/index.mjs';
 import { strict as assert } from 'assert';
 import { tmpdir } from 'os';
