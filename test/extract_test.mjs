@@ -6,12 +6,11 @@ import { strict as assert } from 'assert';
 import { tmpdir } from 'os';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-// const fs = require('fs');
 import fs from 'fs';
-// const rimraf = require('rimraf');
 import rimraf from 'rimraf';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
 const touchSync = (file) => fs.closeSync(fs.openSync(file, 'w'));
 const zf = (n, len = 2) => String(n).padStart(len, '0');
 const ymd = (d = new Date()) => `${d.getFullYear()}${zf(d.getMonth() + 1)}${zf(d.getDate())}${zf(d.getHours())}${zf(d.getMinutes())}${zf(d.getSeconds())}${zf(d.getMilliseconds(), 3)}`;
