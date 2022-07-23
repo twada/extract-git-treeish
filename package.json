@@ -13,17 +13,17 @@
   },
   "devDependencies": {
     "@twada/mocha-spec-tree-reporter": "^0.2.0",
-    "intelli-espower-loader": "^1.0.1",
     "mocha": "^10.0.0",
-    "power-assert": "^1.6.1",
     "rimraf": "^3.0.0",
+    "rollup": "^2.77.0",
     "semistandard": "^16.0.0",
     "snazzy": "^9.0.0"
   },
   "files": [
     "CHANGELOG.md",
     "README.md",
-    "index.js",
+    "src",
+    "dist",
     "package.json"
   ],
   "homepage": "http://github.com/twada/extract-git-treeish",
@@ -31,17 +31,23 @@
     "git"
   ],
   "license": "MIT",
-  "main": "index.js",
+  "main": "./dist/index.cjs",
+  "exports": {
+    "import": "./src/index.mjs",
+    "require": "./dist/index.cjs"
+  },
   "repository": {
     "type": "git",
     "url": "http://github.com/twada/extract-git-treeish.git"
   },
   "scripts": {
-    "fmt": "semistandard --fix",
-    "lint": "semistandard --verbose | snazzy",
+    "preversion": "npm run build && npm test",
+    "build": "rimraf dist && rollup -c",
+    "fmt": "semistandard --fix src test",
+    "lint": "semistandard --verbose src test | snazzy",
     "test": "npm run lint && npm run test:unit",
     "test:doc": "mocha test --reporter @twada/mocha-spec-tree-reporter",
-    "test:unit": "mocha test --require intelli-espower-loader"
+    "test:unit": "mocha test"
   },
   "semistandard": {
     "globals": [

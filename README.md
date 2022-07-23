@@ -16,7 +16,14 @@ USAGE
 
 ```js
 const { exists } = require('extract-git-treeish');
-const assert = require('assert');
+const assert = require('assert').strict;
+assert(await exists({ treeIsh: 'master' }) === true);
+assert(await exists({ treeIsh: 'doesnotexist' }) === false);
+```
+
+```js
+import { exists } from 'extract-git-treeish';
+import assert from 'node:assert/strict';
 assert(await exists({ treeIsh: 'master' }) === true);
 assert(await exists({ treeIsh: 'doesnotexist' }) === false);
 ```
@@ -25,16 +32,27 @@ assert(await exists({ treeIsh: 'doesnotexist' }) === false);
 
 ```js
 const { extract } = require('extract-git-treeish');
-const assert = require('assert');
+const assert = require('assert').strict;
 const path = require('path');
 const destDir = path.join(process.cwd(), 'demo', 'v1');
 const extracted = await extract({ treeIsh: 'v1.0.0', dest: destDir })
-assert.deepStrictEqual(extracted, {
+assert.deepEqual(extracted, {
   treeIsh: 'v1.0.0',
   dir: '/path/to/cwd/demo/v1'
 });
 ```
 
+```js
+import { extract } from 'extract-git-treeish';
+import assert from 'node:assert/strict';
+import { join } from 'node:path';
+const destDir = join(process.cwd(), 'demo', 'v1');
+const extracted = await extract({ treeIsh: 'v1.0.0', dest: destDir });
+assert.deepEqual(extracted, {
+  treeIsh: 'v1.0.0',
+  dir: '/path/to/cwd/demo/v1'
+});
+```
 
 API
 ---------------------------------------
