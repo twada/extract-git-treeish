@@ -1,4 +1,5 @@
 import {promises as fs} from 'fs';
+import externals from 'rollup-plugin-node-externals';
 
 const distDir = await fs.readdir(new URL('./dist', import.meta.url));
 
@@ -17,5 +18,12 @@ export default {
     generatedCode : {
       constBindings: true
     }
-  }
+  },
+  plugins: [
+    // https://github.com/Septh/rollup-plugin-node-externals
+    externals({
+      // strip 'node:' prefix
+      builtinsPrefix: 'strip'
+    })
+  ]
 };

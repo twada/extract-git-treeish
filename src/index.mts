@@ -1,8 +1,8 @@
-import { spawn } from 'child_process';
-import { readdir, mkdir, access, constants } from 'fs';
-import { join, parse } from 'path';
+import { spawn } from 'node:child_process';
+import { readdir, mkdir, access, constants } from 'node:fs';
+import { join, parse } from 'node:path';
 import { x as tarX } from 'tar';
-import type { SpawnOptionsWithoutStdio } from 'child_process';
+import type { SpawnOptionsWithoutStdio } from 'node:child_process';
 
 const prepareDestDir = (dir: string) => {
   return new Promise<void>((resolve, reject) => {
