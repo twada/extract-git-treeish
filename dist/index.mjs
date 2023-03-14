@@ -48,7 +48,6 @@ function mandatoryString(argName, actualArg) {
         throw new TypeError(`The "${argName}" argument must be of type string. Received ${describe(actualArg)}`);
     }
 }
-;
 function optionalString(argName, actualArg) {
     typeof actualArg !== 'undefined' && mandatoryString(argName, actualArg);
 }
