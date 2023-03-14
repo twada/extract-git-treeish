@@ -40,12 +40,12 @@ const findGitProjectRoot = (from = process.cwd()) => {
   });
 };
 const describe = (arg: any) => arg === null ? 'null' : 'type ' + typeof arg;
-function mandatoryString(argName: string, actualArg: any): asserts actualArg is string {
+function mandatoryString (argName: string, actualArg: any): asserts actualArg is string {
   if (typeof actualArg !== 'string') {
     throw new TypeError(`The "${argName}" argument must be of type string. Received ${describe(actualArg)}`);
   }
 }
-function optionalString(argName: string, actualArg: any): asserts actualArg is string|undefined {
+function optionalString (argName: string, actualArg: any): asserts actualArg is string|undefined {
   typeof actualArg !== 'undefined' && mandatoryString(argName, actualArg);
 }
 
@@ -89,7 +89,7 @@ type ExistsArguments = {
   gitProjectRoot?: string,
   spawnOptions?: SpawnOptionsWithoutStdio
 };
-function exists ({treeIsh, gitProjectRoot, spawnOptions}: ExistsArguments): Promise<boolean> {
+function exists ({ treeIsh, gitProjectRoot, spawnOptions }: ExistsArguments): Promise<boolean> {
   mandatoryString('treeIsh', treeIsh);
   optionalString('gitProjectRoot', gitProjectRoot);
   const found = gitProjectRoot ? Promise.resolve(gitProjectRoot) : findGitProjectRoot();

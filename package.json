@@ -18,13 +18,12 @@
     "@types/tar": "^6.1.4",
     "@typescript-eslint/eslint-plugin": "^5.55.0",
     "@typescript-eslint/parser": "^5.55.0",
-    "eslint": "^7.32.0",
+    "eslint": "^8.0.0",
+    "eslint-config-semistandard": "^17.0.0",
     "mocha": "^10.0.0",
     "rimraf": "^4.0.0",
     "rollup": "^3.0.0",
     "rollup-plugin-node-externals": "^5.1.2",
-    "semistandard": "^16.0.0",
-    "snazzy": "^9.0.0",
     "typescript": "^4.9.5"
   },
   "files": [
@@ -58,22 +57,13 @@
     "build:mjs": "tsc",
     "build:cjs": "rollup -c",
     "lint:src": "eslint src --ext .mts",
-    "lint:test": "semistandard --verbose test | snazzy",
+    "lint:test": "eslint test --ext .mjs",
     "lint": "npm run lint:src && npm run lint:test",
     "fix:src": "npm run lint:src -- --fix",
-    "fix:test": "semistandard --fix test",
+    "fix:test": "npm run lint:test -- --fix",
     "fix": "npm run fix:src && npm run fix:test",
     "test": "npm run lint && npm run test:unit",
     "test:doc": "mocha test --reporter @twada/mocha-spec-tree-reporter",
     "test:unit": "mocha test"
-  },
-  "semistandard": {
-    "globals": [
-      "describe",
-      "context",
-      "beforeEach",
-      "afterEach",
-      "it"
-    ]
   }
 }
