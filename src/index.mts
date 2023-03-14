@@ -44,7 +44,7 @@ function mandatoryString(argName: string, actualArg: any): asserts actualArg is 
   if (typeof actualArg !== 'string') {
     throw new TypeError(`The "${argName}" argument must be of type string. Received ${describe(actualArg)}`);
   }
-};
+}
 function optionalString(argName: string, actualArg: any): asserts actualArg is string|undefined {
   typeof actualArg !== 'undefined' && mandatoryString(argName, actualArg);
 }
