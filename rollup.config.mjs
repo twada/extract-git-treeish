@@ -1,13 +1,15 @@
 import {promises as fs} from 'fs';
+import externals from 'rollup-plugin-node-externals';
 
-const srcFiles = await fs.readdir(new URL('./src', import.meta.url));
+const distDir = await fs.readdir(new URL('./dist', import.meta.url));
 
 export default {
-  input: srcFiles.filter((file) => file.endsWith('.mjs')).map((x) => `src/${x}`),
+  input: distDir.filter((file) => file.endsWith('.mjs')).map((x) => `dist/${x}`),
   output: {
     dir: 'dist',
     format: 'cjs',
-    entryFileNames: '[name].cjs',
+    entryFileNames: '[name].js',
+    // entryFileNames: '[name].cjs',
     // create a module for each module in the input, instead of trying to chunk them together.
     preserveModules: true,
     // do not add `Object.defineProperty(exports, '__esModule', { value: true })`
@@ -16,5 +18,12 @@ export default {
     generatedCode : {
       constBindings: true
     }
-  }
+  },
+  plugins: [
+    // https://github.com/Septh/rollup-plugin-node-externals
+    externals({
+      // strip 'node:' prefix
+      builtinsPrefix: 'strip'
+    })
+  ]
 };

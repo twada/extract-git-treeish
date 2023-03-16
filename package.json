@@ -13,11 +13,18 @@
   },
   "devDependencies": {
     "@twada/mocha-spec-tree-reporter": "^0.2.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^18.14.0",
+    "@types/tar": "^6.1.4",
+    "@typescript-eslint/eslint-plugin": "^5.55.0",
+    "@typescript-eslint/parser": "^5.55.0",
+    "eslint": "^8.0.0",
+    "eslint-config-semistandard": "^17.0.0",
     "mocha": "^10.0.0",
     "rimraf": "^4.0.0",
     "rollup": "^3.0.0",
-    "semistandard": "^16.0.0",
-    "snazzy": "^9.0.0"
+    "rollup-plugin-node-externals": "^5.1.2",
+    "typescript": "^4.9.5"
   },
   "files": [
     "CHANGELOG.md",
@@ -31,10 +38,18 @@
     "git"
   ],
   "license": "MIT",
-  "main": "./dist/index.cjs",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    "import": "./src/index.mjs",
-    "require": "./dist/index.cjs"
+    "import": {
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
+    },
+    "require": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "default": "./dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -42,20 +57,19 @@
   },
   "scripts": {
     "preversion": "npm run build && npm test",
-    "build": "rimraf dist && rollup -c",
-    "fmt": "semistandard --fix src test",
-    "lint": "semistandard --verbose src test | snazzy",
+    "build": "npm run build:clean && npm run build:mjs && npm run build:cjs && npm run build:dts",
+    "build:clean": "rimraf dist",
+    "build:mjs": "tsc",
+    "build:cjs": "rollup -c",
+    "build:dts": "cat dist/index.d.mts | sed -e 's/node://g' > dist/index.d.ts",
+    "lint": "npm run lint:src && npm run lint:test",
+    "lint:src": "eslint src --ext .mts",
+    "lint:test": "eslint test --ext .mjs",
+    "fix": "npm run fix:src && npm run fix:test",
+    "fix:src": "npm run lint:src -- --fix",
+    "fix:test": "npm run lint:test -- --fix",
     "test": "npm run lint && npm run test:unit",
     "test:doc": "mocha test --reporter @twada/mocha-spec-tree-reporter",
     "test:unit": "mocha test"
-  },
-  "semistandard": {
-    "globals": [
-      "describe",
-      "context",
-      "beforeEach",
-      "afterEach",
-      "it"
-    ]
   }
 }
