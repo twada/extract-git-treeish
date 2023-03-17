@@ -1,3 +1,14 @@
+## [3.0.0](http://github.com/twada/extract-git-treeish/releases/tag/v3.0.0) (2023-03-18)
+
+
+#### Features
+
+* [Move codebase to TypeScript](https://github.com/twada/extract-git-treeish/pull/10)
+  * Rewrite to TypeScript ([bca738b4](http://github.com/twada/extract-git-treeish/commit/bca738b48d63fa271cca58f0b7349028130837d8))
+  * Provide Type Declaration file ([182122f4](http://github.com/twada/extract-git-treeish/commit/182122f45b4ac9e2044212cd6ce38b64fabfaeef))
+  * Provide ESM/CJS dual package configuration with types ([ab660dc5](https://github.com/twada/extract-git-treeish/pull/10/commits/ab660dc5321b235f4ec0371bbbd4a7b2ba0ec834))
+
+
 ## [2.0.0](http://github.com/twada/extract-git-treeish/releases/tag/v2.0.0) (2022-07-23)
 
 
