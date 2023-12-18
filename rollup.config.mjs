@@ -1,5 +1,6 @@
 import {promises as fs} from 'fs';
 import externals from 'rollup-plugin-node-externals';
+import copy from 'rollup-plugin-copy';
 
 const distDir = await fs.readdir(new URL('./dist', import.meta.url));
 
@@ -24,6 +25,21 @@ export default {
     externals({
       // strip 'node:' prefix
       builtinsPrefix: 'strip'
+    }),
+    // https://github.com/vladshcherbin/rollup-plugin-copy
+    copy({
+      targets: [
+        // copy from index.d.mts to index.d.ts while removing the "node:" protocol
+        {
+          src: 'dist/*.d.mts',
+          dest: 'dist/',
+          rename: (name, extension, fullPath) => {
+            // name => 'index.d', extension => 'mts' here
+            return `${name}.ts`;
+          },
+          transform: (contents, filename) => contents.toString().replace('node:', '')
+        }
+      ]
     })
   ]
 };
