@@ -45,7 +45,7 @@ describe('`extract({ treeIsh, dest, [gitProjectRoot], [spawnOptions] })`: Extrac
 
     it('extract tree-ish content into `dest` on resolve', () => {
       assert(!fs.existsSync(targetDir));
-      return extract({ treeIsh: 'initial', dest: targetDir }).then((result) => {
+      return extract({ treeIsh: 'initial', dest: targetDir }).then((_result) => {
         assert(fs.existsSync(join(targetDir, '.gitignore')));
         assert(fs.existsSync(join(targetDir, 'package.json')));
         assert(!fs.existsSync(join(targetDir, 'index.js')));
@@ -90,7 +90,7 @@ describe('`extract({ treeIsh, dest, [gitProjectRoot], [spawnOptions] })`: Extrac
     context('when directory specified by `dest` does not exist:', () => {
       it('creates `dest` recursively then resolves as usual', () => {
         assert(!fs.existsSync(targetDir));
-        return extract({ treeIsh: 'initial', dest: targetDir }).then((result) => {
+        return extract({ treeIsh: 'initial', dest: targetDir }).then((_result) => {
           assert(fs.existsSync(targetDir));
         });
       });
@@ -101,7 +101,7 @@ describe('`extract({ treeIsh, dest, [gitProjectRoot], [spawnOptions] })`: Extrac
         fs.mkdirSync(targetDir);
         assert(!fs.existsSync(join(targetDir, '.gitignore')));
         assert(!fs.existsSync(join(targetDir, 'package.json')));
-        return extract({ treeIsh: 'initial', dest: targetDir }).then((result) => {
+        return extract({ treeIsh: 'initial', dest: targetDir }).then((_result) => {
           assert(fs.existsSync(join(targetDir, '.gitignore')));
           assert(fs.existsSync(join(targetDir, 'package.json')));
         });
@@ -162,7 +162,7 @@ describe('`extract({ treeIsh, dest, [gitProjectRoot], [spawnOptions] })`: Extrac
       context('when `process.cwd()` is inside the git project:', () => {
         it('resolves as usual', () => {
           process.chdir(__dirname);
-          return extract({ treeIsh: 'initial', dest: targetDir }).then((result) => {
+          return extract({ treeIsh: 'initial', dest: targetDir }).then((_result) => {
             assert(fs.existsSync(join(targetDir, '.gitignore')));
             assert(fs.existsSync(join(targetDir, 'package.json')));
             assert(!fs.existsSync(join(targetDir, 'index.js')));
@@ -182,7 +182,7 @@ describe('`extract({ treeIsh, dest, [gitProjectRoot], [spawnOptions] })`: Extrac
     context('when specified `gitProjectRoot` is pointing to git project root and `treeIsh` exists too:', () => {
       it('resolves as usual when `dest` is empty', () => {
         const gitProjectRoot = join(__dirname, '..');
-        return extract({ treeIsh: 'initial', dest: targetDir, gitProjectRoot }).then((result) => {
+        return extract({ treeIsh: 'initial', dest: targetDir, gitProjectRoot }).then((_result) => {
           assert(fs.existsSync(join(targetDir, '.gitignore')));
           assert(fs.existsSync(join(targetDir, 'package.json')));
           assert(!fs.existsSync(join(targetDir, 'index.js')));

@@ -39,12 +39,15 @@ const findGitProjectRoot = (from = process.cwd()) => {
     });
   });
 };
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const describe = (arg: any) => arg === null ? 'null' : 'type ' + typeof arg;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function mandatoryString (argName: string, actualArg: any): asserts actualArg is string {
   if (typeof actualArg !== 'string') {
     throw new TypeError(`The "${argName}" argument must be of type string. Received ${describe(actualArg)}`);
   }
 }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function optionalString (argName: string, actualArg: any): asserts actualArg is string|undefined {
   typeof actualArg !== 'undefined' && mandatoryString(argName, actualArg);
 }
@@ -77,7 +80,7 @@ function extract ({ treeIsh, dest, gitProjectRoot, spawnOptions }: ExtractArgume
           gitArchive.on('error', reject);
           gitArchive.stdout.pipe(tarX({ C: dest }))
             .on('error', reject)
-            .on('close', (code: number, signal: NodeJS.Signals) => resolve({ treeIsh, dir: dest }));
+            .on('close', (_code: number, _signal: NodeJS.Signals) => resolve({ treeIsh, dir: dest }));
         }, reject);
       }, reject);
     });
@@ -98,7 +101,7 @@ function exists ({ treeIsh, gitProjectRoot, spawnOptions }: ExistsArguments): Pr
     return new Promise<boolean>((resolve, reject) => {
       spawn('git', ['rev-parse', '--verify', '--quiet', treeIsh], sOpts)
         .on('error', reject)
-        .on('close', (code: number, signal: NodeJS.Signals) => resolve(code === 0));
+        .on('close', (code: number, _signal: NodeJS.Signals) => resolve(code === 0));
     });
   });
 }
