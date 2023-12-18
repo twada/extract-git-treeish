@@ -6,7 +6,7 @@ import { tmpdir } from 'os';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
-import rimraf from 'rimraf';
+import { rimrafSync } from 'rimraf';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -29,7 +29,7 @@ describe('`extract({ treeIsh, dest, [gitProjectRoot], [spawnOptions] })`: Extrac
   });
   afterEach(() => {
     if (fs.existsSync(targetDir)) {
-      rimraf.sync(targetDir);
+      rimrafSync(targetDir);
     }
   });
 
