@@ -1,3 +1,11 @@
+## [3.1.0](http://github.com/twada/extract-git-treeish/releases/tag/v3.1.0) (2023-12-18)
+
+
+#### Features
+
+* **tsconfig:** set `compilerOptions.module` and `compilerOptions.moduleResolution` to `"node16"` ([90399606](http://github.com/twada/extract-git-treeish/commit/903996061d9af0f0ee7a4d326a3797eccbf5cf8e))
+
+
 ## [3.0.0](http://github.com/twada/extract-git-treeish/releases/tag/v3.0.0) (2023-03-18)
 
 
