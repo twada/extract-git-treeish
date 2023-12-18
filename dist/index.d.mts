@@ -1,4 +1,4 @@
-/// <reference types="node" />
+/// <reference types="node" resolution-mode="require"/>
 import type { SpawnOptionsWithoutStdio } from 'node:child_process';
 type ExtractArguments = {
     treeIsh: string;
