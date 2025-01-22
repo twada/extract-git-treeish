@@ -1,11 +1,18 @@
 {
   "compilerOptions": {
-    "target": "es2020",
-    "module": "node16",
-    "declaration": true,
     "outDir": "./dist",
-    "moduleResolution": "node16",
-    "strict": true
+    "target": "es2022",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    // any imports or exports without a type modifier are left around
+    "verbatimModuleSyntax": true,
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "lib": ["es2022"]
   },
   "include": ["./src/**/*.ts", "./src/**/*.mts"]
 }
