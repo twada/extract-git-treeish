@@ -7,6 +7,7 @@ Extracts git tree-ish (commits, branches, or tags) into target directory.
 [![NPM version][npm-image]][npm-url]
 [![Code Style][style-image]][style-url]
 [![License][license-image]][license-url]
+![Supported Node Version](https://img.shields.io/node/v/extract-git-treeish)
 
 
 USAGE
