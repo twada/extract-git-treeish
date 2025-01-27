@@ -1,38 +1,23 @@
 {
   "name": "extract-git-treeish",
-  "description": "extract git tree-ish (commits, branches, or tags) into target directory",
   "version": "3.1.0",
+  "description": "extract git tree-ish (commits, branches, or tags) into target directory",
+  "keywords": [
+    "git"
+  ],
+  "homepage": "http://github.com/twada/extract-git-treeish",
+  "bugs": "https://github.com/twada/extract-git-treeish/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/twada/extract-git-treeish.git"
+  },
+  "license": "MIT",
   "author": {
     "name": "Takuto Wada",
     "email": "takuto.wada@gmail.com",
     "url": "https://github.com/twada"
   },
-  "bugs": "https://github.com/twada/extract-git-treeish/issues",
-  "dependencies": {
-    "tar": "^6.1.9"
-  },
-  "devDependencies": {
-    "@types/node": "^22.0.0",
-    "@types/tar": "^6.1.4",
-    "neostandard": "^0.12.0",
-    "rimraf": "^5.0.0",
-    "typescript": "^5.0.0"
-  },
-  "files": [
-    "src",
-    "dist",
-    "!**/__tests__",
-    "CHANGELOG.md",
-    "README.md",
-    "package.json"
-  ],
-  "homepage": "http://github.com/twada/extract-git-treeish",
-  "keywords": [
-    "git"
-  ],
-  "license": "MIT",
   "type": "module",
-  "main": "./dist/index.mjs",
   "exports": {
     ".": {
       "module-sync": {
@@ -42,10 +27,15 @@
     },
     "./package.json": "./package.json"
   },
-  "repository": {
-    "type": "git",
-    "url": "http://github.com/twada/extract-git-treeish.git"
-  },
+  "main": "./dist/index.mjs",
+  "files": [
+    "src",
+    "dist",
+    "!**/__tests__",
+    "CHANGELOG.md",
+    "README.md",
+    "package.json"
+  ],
   "scripts": {
     "preversion": "npm test",
     "clean": "rimraf dist",
@@ -54,5 +44,15 @@
     "lint:fix": "eslint src --fix",
     "test:unit": "node --enable-source-maps --test \"./dist/__tests__/*test.mjs\"",
     "test": "npm run clean && npm run build && npm run test:unit"
+  },
+  "dependencies": {
+    "tar": "^6.1.9"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/tar": "^6.1.4",
+    "neostandard": "^0.12.0",
+    "rimraf": "^5.0.0",
+    "typescript": "^5.0.0"
   }
 }
