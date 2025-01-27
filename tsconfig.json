@@ -12,6 +12,7 @@
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
+    "skipLibCheck": true,
     "lib": ["es2022"]
   },
   "include": ["./src/**/*.ts", "./src/**/*.mts"]

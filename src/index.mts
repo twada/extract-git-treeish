@@ -39,16 +39,13 @@ const findGitProjectRoot = (from = process.cwd()) => {
     });
   });
 };
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const describe = (arg: any) => arg === null ? 'null' : 'type ' + typeof arg;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function mandatoryString (argName: string, actualArg: any): asserts actualArg is string {
   if (typeof actualArg !== 'string') {
     throw new TypeError(`The "${argName}" argument must be of type string. Received ${describe(actualArg)}`);
   }
 }
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function optionalString (argName: string, actualArg: any): asserts actualArg is string|undefined {
+function optionalString (argName: string, actualArg: any): asserts actualArg is string | undefined {
   typeof actualArg !== 'undefined' && mandatoryString(argName, actualArg);
 }
 
