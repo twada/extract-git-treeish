@@ -46,7 +46,7 @@
     "test": "npm run clean && npm run build && npm run test:unit"
   },
   "dependencies": {
-    "tar": "^6.1.9"
+    "tar": "^7.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
