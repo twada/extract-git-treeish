@@ -144,8 +144,8 @@ Licensed under the [MIT](https://twada.mit-license.org) license.
 [npm-url]: https://npmjs.org/package/extract-git-treeish
 [npm-image]: https://badge.fury.io/js/extract-git-treeish.svg
 
-[style-url]: https://github.com/standard/semistandard
-[style-image]: https://img.shields.io/badge/code%20style-semistandard-brightgreen.svg
+[style-url]: https://github.com/neostandard/neostandard
+[style-image]: https://img.shields.io/badge/code_style-neostandard-brightgreen?style=flat
 
 [license-url]: https://twada.mit-license.org
 [license-image]: https://img.shields.io/badge/license-MIT-brightgreen.svg
