@@ -1,3 +1,16 @@
+## [4.0.0](http://github.com/twada/extract-git-treeish/releases/tag/v4.0.0) (2025-01-28)
+
+
+#### Features
+
+* [Migrate to pure ESM module in favor of `require(esm)`](https://github.com/twada/extract-git-treeish/pull/12)
+
+
+#### Breaking Changes
+
+* set Node minimum version to [v22.12.0](https://nodejs.org/ja/blog/release/v22.12.0), the version where `require(esm)` is enabled by default.
+
+
 ## [3.1.0](http://github.com/twada/extract-git-treeish/releases/tag/v3.1.0) (2023-12-18)
 
 
