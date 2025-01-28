@@ -1,3 +1,11 @@
+### [4.0.1](http://github.com/twada/extract-git-treeish/releases/tag/v4.0.1) (2025-01-29)
+
+
+#### Bug Fixes
+
+* add types field to package.json for fallback ([a4497c29](http://github.com/twada/extract-git-treeish/commit/a4497c292c684078c945c8635502e59bc0a1c317))
+
+
 ## [4.0.0](http://github.com/twada/extract-git-treeish/releases/tag/v4.0.0) (2025-01-28)
 
 
