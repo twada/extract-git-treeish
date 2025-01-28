@@ -1,6 +1,6 @@
 {
   "name": "extract-git-treeish",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "extract git tree-ish (commits, branches, or tags) into target directory",
   "keywords": [
     "git"
