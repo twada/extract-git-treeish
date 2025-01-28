@@ -28,6 +28,7 @@
     "./package.json": "./package.json"
   },
   "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "files": [
     "src",
     "dist",
