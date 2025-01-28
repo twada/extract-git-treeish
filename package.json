@@ -44,7 +44,7 @@
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "test:unit": "node --enable-source-maps --test \"./dist/__tests__/*test.mjs\"",
-    "test": "npm run clean && npm run build && npm run test:unit"
+    "test": "npm run clean && npm run lint && npm run build && npm run test:unit"
   },
   "dependencies": {
     "tar": "^7.0.0"
