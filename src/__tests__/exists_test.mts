@@ -1,5 +1,5 @@
 import { describe, it, beforeEach, afterEach } from 'node:test';
-import { exists } from '../index.mjs';
+import { exists } from '../index.mts';
 import { strict as assert } from 'node:assert';
 import { tmpdir } from 'node:os';
 import { join, dirname } from 'node:path';
