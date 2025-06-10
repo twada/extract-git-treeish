@@ -48,14 +48,15 @@
     "compile": "tsc",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
-    "test:dist": "node --enable-source-maps --test \"./dist/__tests__/*test.mjs\"",
-    "test:unit": "node --experimental-strip-types --enable-source-maps --test \"./src/__tests__/*test.mts\"",
+    "test:dist": "node --enable-source-maps --import @power-assert/node --test \"./dist/__tests__/*test.mjs\"",
+    "test:unit": "node --experimental-strip-types --enable-source-maps --import @power-assert/node --test \"./src/__tests__/*test.mts\"",
     "test": "npm run lint && npm run test:unit"
   },
   "dependencies": {
     "tar": "^7.0.0"
   },
   "devDependencies": {
+    "@power-assert/node": "^0.5.0",
     "@types/node": "^22.0.0",
     "neostandard": "^0.12.0",
     "rimraf": "^6.0.0",
