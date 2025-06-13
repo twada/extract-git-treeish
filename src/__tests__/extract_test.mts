@@ -1,4 +1,4 @@
-import { extract } from '../index.mjs';
+import { extract } from '../index.mts';
 import { describe, it, beforeEach, afterEach } from 'node:test';
 import { strict as assert } from 'node:assert';
 import { tmpdir } from 'node:os';
