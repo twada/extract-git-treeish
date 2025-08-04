@@ -57,11 +57,11 @@
     "tar": "^7.0.0"
   },
   "devDependencies": {
-    "@power-assert/node": "^0.5.0",
-    "@types/node": "^22.0.0",
+    "@power-assert/node": "^0.6.0",
+    "@types/node": "^24.0.0",
     "neostandard": "^0.12.0",
     "rimraf": "^6.0.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.9.0"
   },
   "engines": {
     "node": ">=22.12.0"
