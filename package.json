@@ -46,11 +46,12 @@
     "preversion": "npm run rebuild",
     "clean": "rimraf dist",
     "compile": "tsc",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
     "test:dist": "node --enable-source-maps --import @power-assert/node --test \"./dist/__tests__/*test.mjs\"",
     "test:unit": "node --experimental-strip-types --enable-source-maps --import @power-assert/node --test \"./src/__tests__/*test.mts\"",
-    "test": "npm run lint && npm run test:unit"
+    "test": "npm run lint && npm run typecheck && npm run test:unit"
   },
   "dependencies": {
     "tar": "^7.0.0"
