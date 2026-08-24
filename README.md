@@ -18,14 +18,14 @@ USAGE
 ```js
 const { exists } = require('extract-git-treeish');
 const assert = require('assert').strict;
-assert(await exists({ treeIsh: 'master' }) === true);
+assert(await exists({ treeIsh: 'main' }) === true);
 assert(await exists({ treeIsh: 'doesnotexist' }) === false);
 ```
 
 ```js
 import { exists } from 'extract-git-treeish';
 import assert from 'node:assert/strict';
-assert(await exists({ treeIsh: 'master' }) === true);
+assert(await exists({ treeIsh: 'main' }) === true);
 assert(await exists({ treeIsh: 'doesnotexist' }) === false);
 ```
 
