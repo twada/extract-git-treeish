@@ -9,7 +9,7 @@
   "bugs": "https://github.com/twada/extract-git-treeish/issues",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/twada/extract-git-treeish.git"
+    "url": "git+https://github.com/twada/extract-git-treeish.git"
   },
   "license": "MIT",
   "author": {
@@ -43,7 +43,6 @@
   ],
   "scripts": {
     "rebuild": "npm run clean && npm run lint && npm run compile && npm run test:dist",
-    "preversion": "npm run rebuild",
     "clean": "rimraf dist",
     "compile": "tsc",
     "typecheck": "tsc --noEmit",
