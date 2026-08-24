@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+  # escape hatch: re-run the publish leg manually when it failed after
+  # release-please has already created the GitHub Release and tag
+  # (re-running the failed job would reuse the old workflow definition)
+  workflow_dispatch:
 
 permissions: {}   # zero default permissions; grant per job
 
@@ -26,7 +30,7 @@ jobs:
 
   publish:
     needs: release-please
-    if: needs.release-please.outputs.release_created == 'true'
+    if: needs.release-please.outputs.release_created == 'true' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     environment:
       name: npm              # must match the Environment name of the npm Trusted Publisher
@@ -37,6 +41,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          # full history: tests depend on git history and tags
+          fetch-depth: 0
           persist-credentials: false
 
       - name: Setup Node.js
