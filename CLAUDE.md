@@ -73,3 +73,15 @@ The codebase follows a simple, focused architecture:
 - Uses `rewriteRelativeImportExtensions` for proper ESM imports
 - Generates source maps and declaration files
 - Output directory: `dist/`
+
+## Release Process
+
+Releases are fully automated and tokenless: release-please derives the version
+from Conventional Commits and maintains a release PR; merging it triggers
+npm trusted publishing (OIDC) with staged publishing as the final 2FA-gated
+approval. See [docs/RELEASE.md](docs/RELEASE.md) for the runbook.
+
+- **Never run `npm publish` locally** — publishing only happens through
+  `.github/workflows/release.yml`
+- Commit types matter: `fix:`/`feat:`/breaking changes trigger releases;
+  use `chore:`/`ci:`/`docs:` for non-releasable changes

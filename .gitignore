@@ -91,7 +91,3 @@ typings/
 
 
 dist
-/cl.cjs
-/content
-/npm.HOWTO
-/release.sh
