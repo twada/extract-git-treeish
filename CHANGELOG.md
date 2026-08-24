@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.0.3](https://github.com/twada/extract-git-treeish/compare/v4.0.2...v4.0.3) (2026-08-24)
+
+
+### Bug Fixes
+
+* update locked dependencies to non-vulnerable versions ([cbb6184](https://github.com/twada/extract-git-treeish/commit/cbb6184fdcaa3bdd28885739c581668d73c3370f))
+
 ## [4.0.2](http://github.com/twada/extract-git-treeish/releases/tag/v4.0.2) (2025-01-29)
 
 
