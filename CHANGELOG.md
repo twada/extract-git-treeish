@@ -6,6 +6,13 @@
 * add "import" to conditional exports field for fallback ([40d801a8](http://github.com/twada/extract-git-treeish/commit/40d801a82a973a4d982df20da4c8aaa56da73469))
 
 
+## [4.0.3](https://github.com/twada/extract-git-treeish/compare/v4.0.2...v4.0.3) (2026-08-24)
+
+
+### Bug Fixes
+
+* update locked dependencies to non-vulnerable versions ([cbb6184](https://github.com/twada/extract-git-treeish/commit/cbb6184fdcaa3bdd28885739c581668d73c3370f))
+
 ### [4.0.1](http://github.com/twada/extract-git-treeish/releases/tag/v4.0.1) (2025-01-29)
 
 
